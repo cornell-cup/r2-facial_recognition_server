@@ -1,3 +1,7 @@
 *~
 *.swp
 
+# Compiled code
+*.class
+*.o
+
