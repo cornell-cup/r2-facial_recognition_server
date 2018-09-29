@@ -1,12 +1,13 @@
 # Facial Recognition Program
 
-### Language/Libraries Used
-C++, with OpenCV
-
 ### General Info
+Language: C++
+
 Input: Preprocessed image data
 
-Ouput: JSON
+Output: JSON
+
+Libraries: OpenCV
 
 Must be manually called
 
