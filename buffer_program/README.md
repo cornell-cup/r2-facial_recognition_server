@@ -11,6 +11,8 @@ Output: JSON
 
 Libraries: `flask`
 
+Install `flask` with `pip install flask`
+
 ### Description
 This program will act as an API server. It will listen for HTTP requests sent to it via the client and process the image file to be sent to the facial recognition program. The result from that program will be returned to the client.
 
