@@ -1,15 +1,28 @@
 # r2-facial_recognition_server buffer program
-Arthor Rong Tan, Stanley Lin
+Authors: Rong Tan, Stanley Lin
 This program is part of the R2 facial recognition server code.
 
+### General info
+Language: Python
+
+Input: JSON
+
+Output: JSON
+
+Libraries: `flask`
+
 ### Description
-It serves as a Buffer program in Java. And this program is always listening to the web socket.
+This program will act as an API server. It will listen for HTTP requests sent to it via the client and process the image file to be sent to the facial recognition program. The result from that program will be returned to the client.
 
 ### Input
-There are two thread that the program is running.
-For the first thread, there is a constantly-listening program, which will listen to the web socket from the client program 1 to receive face image
-For the first thread, there is a constantly-listening program, which will listen to the web socket from the facial recognition program to receive JSON
+This program will utilize flask as the webserver.
+JSON data from the client, formatted as follows:
+```
+{
+	"image": <base64 encoded string>
+}
+```
 
-### Function 
-For the first thread, we want to get the face image, preprocess it, and send to the facial recognition program. 
-For the second thread, we want to get the JSON, preprocess it, and send to Client Program 2. 
+### Output
+The JSON output from the facial recognition program will be returned to the client, unmodified.
+
