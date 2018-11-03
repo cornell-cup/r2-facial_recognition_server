@@ -43,6 +43,21 @@ def getImage():
 
     s.close()
 
+#Copy images to fr_program dir: need to change after figuring out the address
+
+def changeDir():
+	src_dir = "source_directory"
+	dst_dir = "destination_directory"
+	for jpgfile in glob.iglob(os.path.join(src_dir, "*.jpg")):
+    	shutil.copy(jpgfile, dst_dir)
+
+#remove unwanted images from the buffer_program dir
+def removeIm():
+	for i in glob.glob("*.jpg"):
+    	os.remove(i)
+
+
+
 #Check the attendance of person with the name and return a complete check in status in json format
 def checkAttendance(inputNameJson):
 
