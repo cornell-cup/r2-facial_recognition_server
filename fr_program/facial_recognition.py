@@ -65,11 +65,15 @@ def parse_result(face_name):
             raise EmptyInputError
         data = {
             'name': face_name,
+            'status': "success"
         }
         return data
     except EmptyInputError:
         print("Error! This person is in Cornell Cup.")
-        data = {}
+        data = {
+            'name': "",
+            'status': "fail"
+        }
         return data
 
 def send_request_name(data_name):
@@ -80,9 +84,15 @@ def send_request_name(data_name):
         print(err)
         sys.exit(1)
 
+def get_new_image():
+    return ""
+
 
 def main():
     import_headshot_set()
+
+    recognize_face()
+
     face_name = recognize_face()
     data_name = parse_result(face_name)
     send_request_name(data_name)

@@ -50,6 +50,7 @@ def checkAttendance(inputNameJson):
 
     #Name
     face_name = text[name]
+    status_request = text[status]
 
     #timeCheck
     nowTime = datetime.datetime.now()
@@ -59,23 +60,34 @@ def checkAttendance(inputNameJson):
     statusOnTime = nowTime <= today12pm
 
     #MeetingType(need to update)
-    meetingType = "Saturday Work Meeting"
+    meetingType = 1
 
-    return parseToJson(face_name, nowTime, statusOnTime, meetingType)
+    status = 0
+
+    # check already checked in or not
+    if (checkIfCheckedIn(face_name)):
+        status = 3
+    else:  # check this person in
+        if status_request == "success":  # input statues
+            if statusOnTime:
+                status = 1  # success
+            else:
+                status = 4  # late
+        else:
+            status = 2  # fail
+
+    return parseToJson(face_name, status, meetingType)
+
+#check if the person has check in
+def checkIfCheckedIn(name):
+    return True
 
 #Parse the Check in result to json
-def parseToJson(face_name, nowTime, statusOnTime, meetingType):
-    statusInString = ""
-    if statusOnTime:
-        status = "OnTime"
-    else:
-        status = "Late"
-
-        CheckInData = {
+def parseToJson(face_name, checkInStatus, meetingType):
+   CheckInData = {
         'name': face_name,
-        'CurrentTime': nowTime,
-        'Status': status,
-        'MeetingType': meetingType
+        'checkInStatus': checkInStatus,
+        'meetingType': meetingType
     }
 
     jsonCheckInData = json.dumps(CheckInData)
