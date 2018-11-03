@@ -32,7 +32,7 @@ flow.fetch_token(code=code)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 
-#the following code uses an InstalledAppFlow, making the acquisition of the authorization code easier
+#the following code uses an InstalledAppFlow, making the acquisition of the authorization code easier flow an installed app
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 flow = InstalledAppFlow.from_client_secrets_file(
@@ -41,7 +41,6 @@ flow = InstalledAppFlow.from_client_secrets_file(
 
 #this will create a temporary local server that attempts to redirect the browser to the auth url. It listens for the authorization code in the response. Once it gets it, it will shut down. It will also acquire the access token
 flow.run_local_server()
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #get the credentials
