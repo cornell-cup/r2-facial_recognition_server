@@ -3,13 +3,16 @@ import sys
 import json
 import datetime
 import requests
+import glob
+import shutil
+import os
 
 # defining the api-endpoint
 API_ENDPOINT_Name = ""
 API_ENDPOINT_CheckInData = ""
 
-#get image from the Rasberry Pi via socket
-def getImage():
+# get image from the Rasberry Pi via socket
+def get_image():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except socket.error:
@@ -26,10 +29,9 @@ def getImage():
         print('Hostname could not be resolved. Exiting')
         sys.exit()
 
-    #Connect to remote server
+    # Connect to remote server
     s.connect((remote_ip , port))
     print('Socket Connected to ' + host + ' on ip ' + remote_ip)
-
 
     filename = open('camerashot.jpg', 'wb')
     while True:
@@ -43,59 +45,67 @@ def getImage():
 
     s.close()
 
-#Copy images to fr_program dir: need to change after figuring out the address
-
+# Copy images to fr_program dir: need to change after figuring out the address
 def changeDir():
-	src_dir = "source_directory"
-	dst_dir = "destination_directory"
-	for jpgfile in glob.iglob(os.path.join(src_dir, "*.jpg")):
-    	shutil.copy(jpgfile, dst_dir)
+    src_dir = "source_directory"
+    dst_dir = "destination_directory"
+    for jpgfile in glob.iglob(os.path.join(src_dir, "*.jpg")):
+        shutil.copy(jpgfile, dst_dir)
 
 #remove unwanted images from the buffer_program dir
 def removeIm():
-	for i in glob.glob("*.jpg"):
-    	os.remove(i)
+    for i in glob.glob("*.jpg"):
+        os.remove(i)
 
 
 
-#Check the attendance of person with the name and return a complete check in status in json format
+#C heck the attendance of person with the name and return a complete check in status in json format
 def checkAttendance(inputNameJson):
-
+    status = 0
     text = json.loads(inputNameJson)
 
-    #Name
+    # Name
     face_name = text[name]
+    status_request = text[status]
 
-    #timeCheck
-    nowTime = datetime.datetime.now()
+    # timeCheck
+    now_time = datetime.datetime.now()
     today12pm = datetime.time(hour=12)
 
-    #Status(need to update)
-    statusOnTime = nowTime <= today12pm
+    # Status(need to update)
+    status_on_time = now_time <= today12pm
 
-    #MeetingType(need to update)
-    meetingType = "Saturday Work Meeting"
+    # MeetingType(need to update)
+    meeting_type = 1
 
-    return parseToJson(face_name, nowTime, statusOnTime, meetingType)
+    # check already checked in or not
+    if checkIfCheckedIn(face_name):
+        status = 3
+    else:  # check this person in
+        if status_request == "success":  # input statues
+            if status_on_time:
+                status = 1  # success
+            else:
+                status = 4  # late
+        else:
+            status = 2  # fail
 
-#Parse the Check in result to json
-def parseToJson(face_name, nowTime, statusOnTime, meetingType):
-    statusInString = ""
-    if statusOnTime:
-        status = "OnTime"
-    else:
-        status = "Late"
+    return parseToJson(face_name, status, meeting_type)
 
-        CheckInData = {
+# check if the person has check in
+def checkIfCheckedIn(name):
+    return True
+
+# Parse the Check in result to json
+def parseToJson(face_name, checkInStatus, meetingType):
+    check_in_data = {
         'name': face_name,
-        'CurrentTime': nowTime,
-        'Status': status,
-        'MeetingType': meetingType
-    }
+        'checkInStatus': checkInStatus,
+        'meetingType': meetingType
+        }
+    checkInData_json = json.dumps(check_in_data)
 
-    jsonCheckInData = json.dumps(CheckInData)
-
-    return jsonCheckInData
+    return checkInData_json
 
 def get_request_name():
     try:
@@ -120,12 +130,12 @@ def send_request_checkInData(checkIndata):
 
 
 def main():
-    getImage()
+    get_image()
 
-    #get the name from API_ENDPOINT_Name
+    # get the name from API_ENDPOINT_Name
     name = get_request_name()
 
-    #send the checkInData to API_ENDPOINT_CheckInData
+    # send the checkInData to API_ENDPOINT_CheckInData
     CheckInData = checkAttendance(name)
     send_request_checkInData(CheckInData)
 
