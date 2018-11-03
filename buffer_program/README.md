@@ -9,9 +9,9 @@ Input: JSON
 
 Output: JSON
 
-Libraries: `flask`
+Libraries: `google-auth` `google-auth-oauthlib`
 
-Install `flask` with `pip install flask`
+Install neccessary libraries with `pip`
 
 ### Description
 This program will act as an API server. It will listen for HTTP requests sent to it via the client and process the image file to be sent to the facial recognition program. The result from that program will be returned to the client.
