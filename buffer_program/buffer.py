@@ -1,5 +1,41 @@
 import socket
 import sys
+<<<<<<< HEAD
+#added
+import glob
+import shutil
+import os
+
+try:
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+except socket.error:
+	print('Failed to create socket')
+	sys.exit()
+print('Socket Created')
+
+host = '192.168.4.148'
+port = 6000
+
+try:
+    remote_ip = socket.gethostbyname( host )
+except socket.gaierror:
+	print('Hostname could not be resolved. Exiting')
+	sys.exit()
+
+#Connect to remote server
+s.connect((remote_ip , port))
+print('Socket Connected to ' + host + ' on ip ' + remote_ip)
+
+filename = open('camerashot.jpg', 'wb')
+while True:
+    strng = s.recv(1024)
+    if not strng:
+        break
+    filename.write(strng)
+filename.close()
+print('received, yay!')
+s.close()
+=======
 import json
 import datetime
 import requests
@@ -115,4 +151,8 @@ def main():
     send_request_checkInData(CheckInData)
 
 
+<<<<<<< HEAD
 main()
+=======
+>>>>>>> 4cd7d95de5392d1b7c61776cbb97208970b74828
+>>>>>>> f2b6c64a2e68cd5d57169241e9794e79f243d7f7
