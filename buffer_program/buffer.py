@@ -2,7 +2,11 @@ import socket
 import sys
 import json
 import datetime
-from buffer_program.facial_recognition import parse_json
+import requests
+
+# defining the api-endpoint
+API_ENDPOINT_Name = ""
+API_ENDPOINT_CheckInData = ""
 
 #get image from the Rasberry Pi via socket
 def getImage():
@@ -78,4 +82,37 @@ def parseToJson(face_name, nowTime, statusOnTime, meetingType):
 
     return jsonCheckInData
 
+def get_request_name():
+    try:
+        r = requests.get(API_ENDPOINT_Name)
+        data_name = r.json()
+        r.raise_for_status()
+        return data_name
+    except requests.exceptions.RequestException as err:
+        print(err)
+        sys.exit(1)
 
+
+
+def send_request_checkInData(checkIndata):
+    try:
+        r = requests.post(url=API_ENDPOINT_CheckInData, json=checkIndata)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as err:
+        print(err)
+        sys.exit(1)
+
+
+
+def main():
+    getImage()
+
+    #get the name from API_ENDPOINT_Name
+    name = get_request_name()
+
+    #send the checkInData to API_ENDPOINT_CheckInData
+    CheckInData = checkAttendance(name)
+    send_request_checkInData(CheckInData)
+
+
+main()
