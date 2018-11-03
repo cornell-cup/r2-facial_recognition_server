@@ -5,7 +5,7 @@ from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from google.oauth2 import service_account
 import google.auth
 
-#aka the auth url
+#the permissions that should be granted to the app
 SCOPE = 'https://www.googleapis.com/auth/spreadsheets'
 
 #A flow object has functionality to help gain user credentials
@@ -42,7 +42,7 @@ def get_user_credentials(user_secret_file):
             user_secret_file,
             scopes=[SCOPE])
 
-    #this will create a temporary local server that attempts to redirect the browser to the auth url. It listens for the authorization code in the response. Once it gets it, it will shut down. It will also acquire the access token
+    #this will create a temporary local server that attempts to redirect the browser to the auth url. It listens for the authorization code in the response. Once it gets it, it will shut down. It will also acquire the access token.
     flow.run_local_server()
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
