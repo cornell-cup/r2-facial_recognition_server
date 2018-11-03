@@ -2,8 +2,15 @@ import face_recognition
 import glob
 import pickle
 import json
+import socket
+import sys
+import requests
 
 face_encoding_set = []
+
+# defining the api-endpoint
+API_ENDPOINT_Name = ""
+
 
 # import all the images of the headshot
 def import_headshot_set():
@@ -41,7 +48,7 @@ def recognize_face():
             for image_name in glob.glob('face_set/*.jpg'):
                 if count == i:
                     face_name = image_name.replace("face_set/", "").replace(".jpg", "")
-                    temp_json = parse_json(face_name)
+                    return face_name
                     break;
                 count += 1
             break
@@ -52,21 +59,34 @@ class EmptyInputError(Exception):
     pass
 
 #parse the face_name into json and send it to buffer program with exception handing for empty input
-def parse_json(face_name):
+def parse_result(face_name):
     try:
         if(face_name):
             raise EmptyInputError
         data = {
             'name': face_name,
         }
-        inputNameJson = json.dumps(data)
-        return inputNameJson
+        return data
     except EmptyInputError:
         print("Error! This person is in Cornell Cup.")
         data = {}
-        return json.dumps(data)
+        return data
+
+def send_request_name(data_name):
+    try:
+        r = requests.post(url=API_ENDPOINT_Name, json=data_name)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as err:
+        print(err)
+        sys.exit(1)
 
 
+def main():
+    import_headshot_set()
+    face_name = recognize_face()
+    data_name = parse_result(face_name)
+    send_request_name(data_name)
 
-import_headshot_set()
-recognize_face()
+main()
+
+
