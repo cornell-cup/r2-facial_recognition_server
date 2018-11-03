@@ -130,7 +130,7 @@ def send_request_checkInData(checkIndata):
 
 
 def main():
-    getImage()
+    get_image()
 
     # get the name from API_ENDPOINT_Name
     name = get_request_name()
