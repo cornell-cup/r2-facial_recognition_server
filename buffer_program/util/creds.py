@@ -1,5 +1,3 @@
-from pprint import pprint
-
 #for user auth
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 
@@ -7,17 +5,15 @@ from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from google.oauth2 import service_account
 import google.auth
 
-#this uses user accounts
-
-#useful: https://developers.google.com/api-client-library/python/guide/aaa_oauth
-
 #aka the auth url
 SCOPE = 'https://www.googleapis.com/auth/spreadsheets'
 
 #A flow object has functionality to help gain user credentials
 
-
 def get_user_credentials(user_secret_file):
+    #this uses user accounts
+    #useful: https://developers.google.com/api-client-library/python/guide/aaa_oauth
+
     #the following code uses a generalized flow, which allows manual handling of the authorization code
     '''
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,8 +51,9 @@ def get_user_credentials(user_secret_file):
     
     return credentials
 
-
 def get_service_credentials(service_secret_file):
+    #this uses service accounts
+    
     try:
         #get application default credentials if they exist
         scoped_credentials, project = google.auth.default(
