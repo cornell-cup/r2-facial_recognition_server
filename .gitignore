@@ -1,7 +1,9 @@
 *~
 *.swp
+*.DS_Store
 
 # Compiled code
 *.class
 *.o
 
+.DS_Store
