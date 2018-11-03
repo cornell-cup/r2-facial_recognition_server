@@ -1,4 +1,7 @@
 from googleapiclient import discovery
+import creds
+
+credentials = 
 
 service = discovery.build("sheets", "v4", credentials=credentials)
 
