@@ -42,7 +42,7 @@ def create_spreadsheet():
     new_sheet = request.execute()
     pprint(new_sheet)
 
-def add_row():
+def add_data():
     spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
     input_range = "First sheet!A1:B2"
     value_input_option = "USER_ENTERED"
@@ -59,6 +59,30 @@ def add_row():
             range=input_range,
             body=request_body,
             valueInputOption=value_input_option)
+    response = request.execute()
+    pprint(response)
+
+def add_row():
+    spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
+
+    #search through whole sheet
+    input_range = "First sheet"
+    
+    value_input_option = "USER_ENTERED"
+    request_body = {
+        "range": input_range,
+        "majorDimension": "ROWS",
+        "values": [
+            ["new", "line"],
+        ]
+    }
+    
+    request = service.spreadsheets().values().append(
+            spreadsheetId=spreadsheet_id,
+            range=input_range,
+            body=request_body,
+            valueInputOption=value_input_option
+        )
     response = request.execute()
     pprint(response)
 
