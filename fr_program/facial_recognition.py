@@ -9,7 +9,7 @@ import datetime
 face_encoding_set = []
 
 # defining the api-endpoint
-API_ENDPOINT_CheckInResult = ""
+API_ENDPOINT_CheckInResult = "http://192.168.4.148:5000/checkInResult"
 
 
 # import all the images of the headshot
@@ -75,7 +75,8 @@ def checkAttendance(face_name):
     today12pm = datetime.time(hour=12)
 
     # Status(need to update)
-    status_on_time = now_time <= today12pm
+    # status_on_time = now_time <= today12pm
+    status_on_time = True
 
     # MeetingType(need to update)
     meeting_type = 1
@@ -113,13 +114,13 @@ def parseToJson(face_name, checkInStatus, meetingType):
 def send_request_checkInResult(checkIndata):
     try:
         r = requests.post(url=API_ENDPOINT_CheckInResult, json=checkIndata)
-        r.raise_for_status()
+        print(r.text)
     except requests.exceptions.RequestException as err:
         print(err)
         sys.exit(1)
 
 def main():
-    import_headshot_set()
+    #import_headshot_set()
     face_name = recognize_face()
     CheckInResult = checkAttendance(face_name)
     send_request_checkInResult(CheckInResult)
