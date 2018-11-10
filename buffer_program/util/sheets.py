@@ -3,6 +3,7 @@ from googleapiclient import discovery
 import creds
 
 service = None
+spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
 
 def init():
     '''
@@ -43,6 +44,9 @@ def create_spreadsheet():
     pprint(new_sheet)
 
 def add_data():
+    '''
+    Adds test data
+    '''
     spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
     input_range = "First sheet!A1:B2"
     value_input_option = "USER_ENTERED"
@@ -62,8 +66,15 @@ def add_data():
     response = request.execute()
     pprint(response)
 
-def add_row():
-    spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
+def add_row(values):
+    '''
+    Adds the data in the array "values" to the spreadsheet
+    values formatted as follows:
+    [
+        ["Row", "of", "data"],
+        ["row", 2]
+    ]
+    '''
 
     #search through whole sheet
     input_range = "First sheet"

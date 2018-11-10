@@ -3,4 +3,6 @@ __pycache__
 *.swp
 creds/*.json
 *.pyc
+*.png
+*.jpg
 
