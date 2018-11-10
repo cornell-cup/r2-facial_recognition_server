@@ -6,7 +6,6 @@ from googleapiclient import discovery
 import creds
 
 service = None
-spreadsheet_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
 
 CHECK_IN_STATUSES = {
     1: "Success",
@@ -35,7 +34,9 @@ def init():
 
 def create_spreadsheet(spreadsheet_name):
     '''
-        Create a new attendance spreadsheet and print out the response
+        Create a new attendance spreadsheet
+
+        Returns the created spreadsheet's id
     '''
     new_spreadsheet = {
         "properties": {
@@ -79,7 +80,7 @@ def create_spreadsheet(spreadsheet_name):
     request = service.spreadsheets().create(body=new_spreadsheet)
 
     new_sheet = request.execute()
-    pprint(new_sheet)
+    return new_sheet["spreadsheetId"]
 
 def add_data():
     '''
@@ -104,7 +105,7 @@ def add_data():
     response = request.execute()
     pprint(response)
 
-def add_row(values, sheet_name="Sheet1"):
+def add_row(values, spreadsheet_id, sheet_name="Sheet1"):
     '''
     Adds the data in the array "values" to the specified
     sheet in the spreadsheet
@@ -137,10 +138,13 @@ def add_row(values, sheet_name="Sheet1"):
     response = request.execute()
     pprint(response)
 
-def add_attendance(json_data, sheet_name="Sheet1"):
+def add_attendance(json_data, spreadsheet_id, sheet_name="Sheet1"):
     '''
     json_data is the output of the facial_recognition program,
-    formatted as a dictionary
+    formatted as a dictionary.
+    spreadsheet_id is a string
+
+    Default sheet_name is "Sheet1"
     '''
     
     values = [
@@ -151,11 +155,12 @@ def add_attendance(json_data, sheet_name="Sheet1"):
             CHECK_IN_STATUSES[json_data["checkInStatus"]]
         ]
     ]
-    add_row(values)
+    add_row(values, spreadsheet_id)
     
 
 init()
-#create_spreadsheet("hi there")
+spread_id = create_spreadsheet("hi there")
+#spread_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
 '''
 add_row([
     ["Billy Jones", "R2 Weekly", 1243215453, "Late"]
@@ -165,6 +170,6 @@ add_attendance({
     "name": "Billy Jones",
     "meetingType": 1,
     "checkInStatus": 4
-})
+}, spread_id)
 
 
