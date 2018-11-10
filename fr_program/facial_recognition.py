@@ -2,14 +2,14 @@ import face_recognition
 import glob
 import pickle
 import json
-import socket
 import sys
 import requests
+import datetime
 
 face_encoding_set = []
 
 # defining the api-endpoint
-API_ENDPOINT_Name = ""
+API_ENDPOINT_CheckInResult = ""
 
 
 # import all the images of the headshot
@@ -53,49 +53,76 @@ def recognize_face():
                 count += 1
             break
 
-#define a empty input name exception for null input
+def get_new_image():
+    return ""
+
 class EmptyInputError(Exception):
-    """no value for the face_name"""
-    pass
+   """no value for the face_name"""
+   pass
+#Check the attendance of person with the name and return a complete check in status in json format
+def checkAttendance(face_name):
+    # define a empty input name exception for null input
+    # Name
+    status_request = "";
 
-#parse the face_name into json and send it to buffer program with exception handing for empty input
-def parse_result(face_name):
-    try:
-        if(face_name):
-            raise EmptyInputError
-        data = {
-            'name': face_name,
-            'status': "success"
-        }
-        return data
-    except EmptyInputError:
-        print("Error! This person is in Cornell Cup.")
-        data = {
-            'name': "",
-            'status': "fail"
-        }
-        return data
+    if(face_name):
+        status_request == "fail"
+    else:
+        status_request == "success"
 
-def send_request_name(data_name):
+    # timeCheck
+    now_time = datetime.datetime.now()
+    today12pm = datetime.time(hour=12)
+
+    # Status(need to update)
+    status_on_time = now_time <= today12pm
+
+    # MeetingType(need to update)
+    meeting_type = 1
+
+    # check already checked in or not
+    if checkIfCheckedIn(face_name):
+        status = 3
+    else:  # check this person in
+        if status_request == "success":  # input statues
+            if status_on_time:
+                status = 1  # success
+            else:
+                status = 4  # late
+        else:
+            status = 2  # fail
+
+    return parseToJson(face_name, status, meeting_type)
+
+# check if the person has check in
+def checkIfCheckedIn(name):
+    return True
+
+# Parse the Check in result to json
+def parseToJson(face_name, checkInStatus, meetingType):
+    check_in_data = {
+        'name': face_name,
+        'checkInStatus': checkInStatus,
+        'meetingType': meetingType
+        }
+    checkInResult_json = json.dumps(check_in_data)
+
+    return checkInResult_json
+
+
+def send_request_checkInResult(checkIndata):
     try:
-        r = requests.post(url=API_ENDPOINT_Name, json=data_name)
+        r = requests.post(url=API_ENDPOINT_CheckInResult, json=checkIndata)
         r.raise_for_status()
     except requests.exceptions.RequestException as err:
         print(err)
         sys.exit(1)
 
-def get_new_image():
-    return ""
-
-
 def main():
     import_headshot_set()
-
-    recognize_face()
-
     face_name = recognize_face()
-    data_name = parse_result(face_name)
-    send_request_name(data_name)
+    CheckInResult = checkAttendance(face_name)
+    send_request_checkInResult(CheckInResult)
 
 main()
 

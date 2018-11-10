@@ -1,15 +1,8 @@
 import socket
 import sys
-import json
-import datetime
-import requests
 import glob
 import shutil
 import os
-
-# defining the api-endpoint
-API_ENDPOINT_Name = ""
-API_ENDPOINT_CheckInData = ""
 
 # get image from the Rasberry Pi via socket
 def get_image():
@@ -57,85 +50,6 @@ def removeIm():
     for i in glob.glob("*.jpg"):
         os.remove(i)
 
-
-
-#C heck the attendance of person with the name and return a complete check in status in json format
-def checkAttendance(inputNameJson):
-    status = 0
-    text = json.loads(inputNameJson)
-
-    # Name
-    face_name = text[name]
-    status_request = text[status]
-
-    # timeCheck
-    now_time = datetime.datetime.now()
-    today12pm = datetime.time(hour=12)
-
-    # Status(need to update)
-    status_on_time = now_time <= today12pm
-
-    # MeetingType(need to update)
-    meeting_type = 1
-
-    # check already checked in or not
-    if checkIfCheckedIn(face_name):
-        status = 3
-    else:  # check this person in
-        if status_request == "success":  # input statues
-            if status_on_time:
-                status = 1  # success
-            else:
-                status = 4  # late
-        else:
-            status = 2  # fail
-
-    return parseToJson(face_name, status, meeting_type)
-
-# check if the person has check in
-def checkIfCheckedIn(name):
-    return True
-
-# Parse the Check in result to json
-def parseToJson(face_name, checkInStatus, meetingType):
-    check_in_data = {
-        'name': face_name,
-        'checkInStatus': checkInStatus,
-        'meetingType': meetingType
-        }
-    checkInData_json = json.dumps(check_in_data)
-
-    return checkInData_json
-
-def get_request_name():
-    try:
-        r = requests.get(API_ENDPOINT_Name)
-        data_name = r.json()
-        r.raise_for_status()
-        return data_name
-    except requests.exceptions.RequestException as err:
-        print(err)
-        sys.exit(1)
-
-
-
-def send_request_checkInData(checkIndata):
-    try:
-        r = requests.post(url=API_ENDPOINT_CheckInData, json=checkIndata)
-        r.raise_for_status()
-    except requests.exceptions.RequestException as err:
-        print(err)
-        sys.exit(1)
-
-
-
 def main():
     get_image()
-
-    # get the name from API_ENDPOINT_Name
-    name = get_request_name()
-
-    # send the checkInData to API_ENDPOINT_CheckInData
-    CheckInData = checkAttendance(name)
-    send_request_checkInData(CheckInData)
 
