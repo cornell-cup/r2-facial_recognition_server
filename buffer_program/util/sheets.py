@@ -1,9 +1,27 @@
+import datetime
+
 from pprint import pprint
 from googleapiclient import discovery
+
 import creds
 
 service = None
-spreadsheet_id = "1oXC40VF9RC2bvzystQ9iaO_2K0kzOqekAB2MZowdd2o"
+spreadsheet_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
+
+CHECK_IN_STATUSES = {
+    1: "Success",
+    2: "Failed",
+    3: "Already checked in",
+    4: "Late"
+}
+
+MEETING_TYPES = {
+    1: "Saturday work meeting",
+    2: "R2 Dave meeting",
+    3: "R2 weekly work meeting",
+    4: "Labo Dave meeting",
+    5: "Labo weekly work meeting"
+}
 
 def init():
     '''
@@ -15,13 +33,13 @@ def init():
     #credentials = creds.get_service_credentials("creds/sheets-test-secret.json")
     service = discovery.build("sheets", "v4", credentials=credentials)
 
-def create_spreadsheet():
+def create_spreadsheet(spreadsheet_name):
     '''
-        Create a new test spreadsheet and print out the response
+        Create a new attendance spreadsheet and print out the response
     '''
-    test_spreadsheet = {
+    new_spreadsheet = {
         "properties": {
-            "title": "Hello test",
+            "title": spreadsheet_name,
             "locale": "en",
             "timeZone": "America/New_York"
         },
@@ -29,16 +47,36 @@ def create_spreadsheet():
             {
                 "properties": {
                     "sheetId": 0,
-                    "title": "First sheet",
-                    "tabColor": {
-                        "green": 1
+                    "title": "Sheet1",
+                    "gridProperties": {
+                        "frozenRowCount": 1
+                    }
+                },
+                "data": {
+                    "startRow": 0,
+                    "startColumn": 0,
+                    "rowData": {
+                        "values": [
+                            {
+                                "userEnteredValue": {"stringValue": "Name"}
+                            },
+                            {
+                                "userEnteredValue": {"stringValue": "Meeting Type"}
+                            },
+                            {
+                                "userEnteredValue": {"stringValue": "Time"}
+                            },
+                            {
+                                "userEnteredValue": {"stringValue": "Check-in Status"}
+                            },
+                        ]
                     }
                 }
             }
         ]
     }
 
-    request = service.spreadsheets().create(body=test_spreadsheet)
+    request = service.spreadsheets().create(body=new_spreadsheet)
 
     new_sheet = request.execute()
     pprint(new_sheet)
@@ -66,26 +104,28 @@ def add_data():
     response = request.execute()
     pprint(response)
 
-def add_row(values):
+def add_row(values, sheet_name="Sheet1"):
     '''
-    Adds the data in the array "values" to the spreadsheet
+    Adds the data in the array "values" to the specified
+    sheet in the spreadsheet
+    
     values formatted as follows:
     [
         ["Row", "of", "data"],
         ["row", 2]
     ]
+    
+    Default sheet name is "Sheet1"
     '''
 
     #search through whole sheet
-    input_range = "First sheet"
+    input_range = sheet_name
     
     value_input_option = "USER_ENTERED"
     request_body = {
         "range": input_range,
         "majorDimension": "ROWS",
-        "values": [
-            ["new", "line"],
-        ]
+        "values": values
     }
     
     request = service.spreadsheets().values().append(
@@ -97,8 +137,34 @@ def add_row(values):
     response = request.execute()
     pprint(response)
 
+def add_attendance(json_data, sheet_name="Sheet1"):
+    '''
+    json_data is the output of the facial_recognition program,
+    formatted as a dictionary
+    '''
+    
+    values = [
+        [
+            json_data["name"],
+            MEETING_TYPES[json_data["meetingType"]],
+            str(datetime.datetime.now()),
+            CHECK_IN_STATUSES[json_data["checkInStatus"]]
+        ]
+    ]
+    add_row(values)
+    
+
 init()
-#create_spreadsheet()
-add_row()
+#create_spreadsheet("hi there")
+'''
+add_row([
+    ["Billy Jones", "R2 Weekly", 1243215453, "Late"]
+])
+'''
+add_attendance({
+    "name": "Billy Jones",
+    "meetingType": 1,
+    "checkInStatus": 4
+})
 
 
