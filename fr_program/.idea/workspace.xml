@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6e4b94f-df7c-431c-9b45-e067603c308e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../buffer_program/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../buffer_program/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../buffer_program/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,10 +15,11 @@
     <session id="2069350850">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.3" value="2" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demo0">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="47" selection-start-line="47" selection-end-line="47" />
+            <state relative-caret-position="148">
+              <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="39" selection-end-column="32" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -97,7 +98,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,6 +114,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -131,7 +132,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.testReceive">
+  <component name="RunManager" selected="Python.demo0">
     <configuration name="demo0" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="fr_program" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -180,8 +181,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.testReceive" />
         <item itemvalue="Python.demo0" />
+        <item itemvalue="Python.testReceive" />
       </list>
     </recent_temporary>
   </component>
@@ -201,7 +202,7 @@
   <component name="ToolWindowManager">
     <frame x="169" y="154" width="1260" height="737" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25779969" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26600984" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -227,23 +228,12 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/face_encoding_set.txt" />
-    <entry file="file://$PROJECT_DIR$/tst.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testReceive.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding>
-            <element signature="e#7#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/tst.jpg" />
+    <entry file="file://$PROJECT_DIR$/testReceive.py" />
     <entry file="file://$PROJECT_DIR$/demo0">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        <state relative-caret-position="148">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="39" selection-end-column="32" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
