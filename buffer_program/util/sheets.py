@@ -27,6 +27,7 @@ def init():
         Obtains credentials and sets up the sheets service
     '''
     global service
+    print("Initalizing Sheets API...")
     
     credentials = creds.get_user_credentials("creds/user-secret.json")
     #credentials = creds.get_service_credentials("creds/sheets-test-secret.json")

@@ -1,7 +1,7 @@
 import os, sys
 from flask import Flask, request
 
-#from util import facial_rec
+from util import facerec
 from util import sheets
 
 app = Flask(__name__)
@@ -22,7 +22,6 @@ def identify_face():
         "test.png"))
     
     
-    
     return "image uploaded"
 
 @app.route("/")
@@ -30,7 +29,8 @@ def root():
     sheets.init()
     return "hello"
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+print("Server initializing...")
+facerec.import_headshot_set()
+sheets.init()
+print("Server ready")
 
