@@ -1,6 +1,8 @@
-import os
+import os, sys
 from flask import Flask, request
-from util.facial_rec import *
+
+#from util import facial_rec
+from util import sheets
 
 app = Flask(__name__)
 
@@ -19,10 +21,13 @@ def identify_face():
         app.config["UPLOAD_FOLDER"],
         "test.png"))
     
+    
+    
     return "image uploaded"
 
 @app.route("/")
 def root():
+    sheets.init()
     return "hello"
 
 if __name__ == "__main__":

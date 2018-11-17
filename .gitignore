@@ -1,6 +1,7 @@
 *~
 *.swp
 *.DS_Store
+*.idea
 
 # Compiled code
 *.class
