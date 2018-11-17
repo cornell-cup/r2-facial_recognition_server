@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94faf6f3-4c7d-433e-9e3f-cf9f495c403e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fr_program/facial_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/fr_program/facial_recognition.py" afterDir="false" />
-    </list>
+    <list default="true" id="94faf6f3-4c7d-433e-9e3f-cf9f495c403e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,8 +23,8 @@
       <file leaf-file-name="facial_recognition.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fr_program/facial_recognition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+            <state relative-caret-position="260">
+              <caret line="13" column="19" lean-forward="true" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -62,7 +59,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="259" />
+    <option name="x" value="210" />
     <option name="y" value="23" />
     <option name="width" value="1260" />
     <option name="height" value="737" />
@@ -146,7 +143,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="259" y="23" width="1260" height="737" extended-state="0" />
+    <frame x="210" y="23" width="1260" height="737" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -324,8 +321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fr_program/facial_recognition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+        <state relative-caret-position="260">
+          <caret line="13" column="19" lean-forward="true" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
