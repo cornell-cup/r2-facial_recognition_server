@@ -32,7 +32,7 @@ def import_headshot_set():
             print("I wasn't able to locate any faces in " + image_name + ". Check the image files. Aborting...")
     print("Headshot imported!")
     # save the face_encoding_set to local text file
-    fw = open('face_encoding_set.data', 'wb')
+    fw = open('data/face_encoding_set.data', 'wb')
     pickle.dump(face_encoding_set, fw)
     fw.close()
 
@@ -44,10 +44,10 @@ Output: face_name | the person's name of the input image
 """
 def recognize_face(path):
     # read back the data in face_encoding_set
-    fd = open('face_encoding_set.data', 'rb')
+    fd = open('data/face_encoding_set.data', 'rb')
     image_file = open(path, 'rb')
     face_encoding_set = pickle.load(fd)
-
+    print(len(face_encoding_set))
     test_image = face_recognition.load_image_file(image_file.name)
     test_face_encoding = face_recognition.face_encodings(test_image)[0]
     # results is an array of True/False telling if the unknown face matched anyone in the known_faces array

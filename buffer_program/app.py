@@ -15,6 +15,10 @@ def locate_face():
 #call the facial recognition library code
 @app.route("/identify-face", methods=["POST"])
 def identify_face():
+    '''
+    Calls the facial recognition library code and
+    checks in the person if recognized
+    '''
     file = request.files["image"]
 
     file.save(os.path.join(
@@ -25,7 +29,7 @@ def identify_face():
         app.config["UPLOAD_FOLDER"],
         "test.png"))
     
-    return "name"
+    return facerec.checkAttendance(name)
 
 @app.route("/")
 def root():
