@@ -21,12 +21,14 @@ def identify_face():
         app.config["UPLOAD_FOLDER"],
         "test.png"))
     
+    name = facerec.recognize_face(os.path.join(
+        app.config["UPLOAD_FOLDER"],
+        "test.png"))
     
-    return "image uploaded"
+    return "name"
 
 @app.route("/")
 def root():
-    sheets.init()
     return "hello"
 
 print("Server initializing...")
