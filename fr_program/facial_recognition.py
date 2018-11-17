@@ -2,18 +2,26 @@ import face_recognition
 import glob
 import pickle
 import json
-import sys
-import requests
 import datetime
 
-face_encoding_set = []
+"""
+How to use this module:
 
-# defining the api-endpoint
-API_ENDPOINT_CheckInResult = "http://192.168.4.148:5000/checkInResult"
+Step1: import all the headshot set 
+import_headshot_set()
+
+Step2: get the check-in result for this person in json format
+checkInResult(path)
+"""
 
 
-# import all the images of the headshot
+"""
+This function import all the images of the headshot
+Input: none
+Output: none
+"""
 def import_headshot_set():
+    face_encoding_set = []
     print("Importing headshot...")
     for image_name in glob.glob('face_set/*.jpg'):
         try:
@@ -29,13 +37,18 @@ def import_headshot_set():
     fw.close()
 
 
-# this function can read the image named test.jpg and match to the existing face set
-def recognize_face():
+"""
+This function take in the images from path, match to the existing face set, and return the name.
+Input: path | the path of test image 
+Output: face_name | the person's name of the input image
+"""
+def recognize_face(path):
     # read back the data in face_encoding_set
     fd = open('face_encoding_set.data', 'rb')
+    image_file = open(path, 'rb')
     face_encoding_set = pickle.load(fd)
 
-    test_image = face_recognition.load_image_file("test.jpg")
+    test_image = face_recognition.load_image_file(image_file.name)
     test_face_encoding = face_recognition.face_encodings(test_image)[0]
     # results is an array of True/False telling if the unknown face matched anyone in the known_faces array
     results = face_recognition.compare_faces(face_encoding_set, test_face_encoding)
@@ -59,7 +72,13 @@ def get_new_image():
 class EmptyInputError(Exception):
    """no value for the face_name"""
    pass
-#Check the attendance of person with the name and return a complete check in status in json format
+
+
+"""
+This function check the attendance of person with the name and return a complete check in status in json
+Input: face_name | a person's name 
+Output: a json | the person's check-in data in json format
+"""
 def checkAttendance(face_name):
     # define a empty input name exception for null input
     # Name
@@ -99,7 +118,13 @@ def checkAttendance(face_name):
 def checkIfCheckedIn(name):
     return True
 
-# Parse the Check in result to json
+"""
+This function parse the check-in result to json
+Input: face_name      | name of the person
+       checkInStatus  | check in status
+       meetingType    | type of meeting
+Output: a json | the person's checkIn data in json format
+"""
 def parseToJson(face_name, checkInStatus, meetingType):
     check_in_data = {
         'name': face_name,
@@ -110,21 +135,14 @@ def parseToJson(face_name, checkInStatus, meetingType):
 
     return checkInResult_json
 
-
-def send_request_checkInResult(checkIndata):
-    try:
-        r = requests.post(url=API_ENDPOINT_CheckInResult, json=checkIndata)
-        print(r.text)
-    except requests.exceptions.RequestException as err:
-        print(err)
-        sys.exit(1)
-
-def main():
-    #import_headshot_set()
+"""
+This function combines the recognize_face and checkAttendance, returns the check-in json.
+Input: path | the path of test image 
+Output: a json | the person's checkIn data in json format
+"""
+def checkInResult(path):
     face_name = recognize_face()
     CheckInResult = checkAttendance(face_name)
-    send_request_checkInResult(CheckInResult)
-
-main()
+    return CheckInResult
 
 
