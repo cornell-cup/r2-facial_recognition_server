@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request
+from util.facial_rec import *
 
 app = Flask(__name__)
 
