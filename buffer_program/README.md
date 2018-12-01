@@ -32,19 +32,25 @@ The JSON output from the facial recognition program will be returned to the clie
 ### Modules
 
 #### sheets
-Uses Google sheet API
+Uses Google Sheets API
 
-This program is to record people's sign-in status in a google doc.
+Uploads the check in status of a person to a Google spreadsheet
 
 Input: JSON
-
-Output: Google doc with people's sign-in status
+Output: None
 
 #### facerec
 Uses `face_recognition` python library
+
+This program first imports all headshots and then returns the JSON which contains the check in status of person. If no person was identified, the fields in the output are undefined.
+
 Input: location of image file (string) 
+Output: check in status in JSON format
+```
+{
+	"name": <string>,
+	"checkInStatus": <string>,
+	"meetingType": <number>
+}
+```
 
-Output: checkin result for people in JSON format
-
-### Description
-This program first import all headshots and then return the JSON which contains the information of checkin status for people.
