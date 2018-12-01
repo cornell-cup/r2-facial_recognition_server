@@ -14,7 +14,9 @@ Libraries: `google-auth` `google-auth-oauthlib` `flask` `face_recognition`
 Install neccessary libraries with `pip`
 
 ### Running the program
-Set the environment variable `FLASK_ENV=development`. Then call `flask run --no-reload` (due to how the program handles oauth for the Sheets API, running with reload enabled will cause problems). To change the host and port, consult `flask run --help`.
+* Set the environment variable `FLASK_ENV=development`.
+* Then call `flask run --no-reload` (due to how the program handles oauth for the Sheets API, running with reload enabled will cause problems).
+* To change the host and port, consult `flask run --help`.
 
 ### Description
 This program will act as an API server. It will listen for HTTP requests sent to it via the client and process the image file to be sent to the facial recognition program. The result from that program will be returned to the client.
