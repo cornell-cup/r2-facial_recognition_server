@@ -1,6 +1,5 @@
-# r2-facial_recognition_server buffer program
-Authors: Rong Tan, Stanley Lin
-This program is part of the R2 facial recognition server code.
+# r2-facial_recognition_server
+Authors: Rong Tan, Stanley Lin, Wendy Huang
 
 ### General info
 Language: Python
