@@ -28,25 +28,20 @@ The client will send a POST request encoded with multipart/form-data. The server
 ### Output
 The JSON output from the facial recognition program will be returned to the client, unmodified.
 
-# r2-facial_recognition_server_util_sheets
-### General Description
 
-Language: Python
+### Modules
 
-API: Google sheet API
+#### sheets
+Uses Google sheet API
 
-### Description
 This program is to record people's sign-in status in a google doc.
 
 Input: JSON
 
 Output: Google doc with people's sign-in status
 
-# r2-facial_recognition_server_util_facerec
-
-### General Info
-Language: Python
-
+#### facerec
+Uses `face_recognition` python library
 Input: location of image file (string) 
 
 Output: checkin result for people in JSON format
