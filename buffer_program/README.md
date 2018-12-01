@@ -9,7 +9,7 @@ Input: JSON
 
 Output: JSON
 
-Libraries: `google-auth` `google-auth-oauthlib` `flask`
+Libraries: `google-auth` `google-auth-oauthlib` `flask` `face_recognition`
 
 Install neccessary libraries with `pip`
 
