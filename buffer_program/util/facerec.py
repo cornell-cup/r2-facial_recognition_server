@@ -41,6 +41,7 @@ def import_headshot_set():
 This function take in the images from path, match to the existing face set, and return the name.
 Input: path | the path of test image 
 Output: face_name | the person's name of the input image
+        returns "None" if no person is found
 """
 def recognize_face(path):
     # read back the data in face_encoding_set
@@ -49,6 +50,8 @@ def recognize_face(path):
     face_encoding_set = pickle.load(fd)
     print(len(face_encoding_set))
     test_image = face_recognition.load_image_file(image_file.name)
+    if len(face_recognition.face_encodings(test_image)) == 0:
+        return "None" 
     test_face_encoding = face_recognition.face_encodings(test_image)[0]
     # results is an array of True/False telling if the unknown face matched anyone in the known_faces array
     results = face_recognition.compare_faces(face_encoding_set, test_face_encoding)
@@ -78,11 +81,14 @@ class EmptyInputError(Exception):
 This function check the attendance of person with the name and return a complete check in status in json
 Input: face_name | a person's name 
 Output: a json | the person's check-in data in json format
+        if face_name == "None", the fields in the output are undefined
 """
 def checkAttendance(face_name):
     # define a empty input name exception for null input
     # Name
     status_request = "";
+    if face_name == "None":
+        return parseToJson(face_name, "fail", 999)
 
     if(face_name):
         status_request == "fail"
