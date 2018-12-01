@@ -1,9 +1,0 @@
-bin/
-__pycache__
-*.swp
-creds/*.json
-*.pyc
-*.png
-*.jpg
-*.data
-

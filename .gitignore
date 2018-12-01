@@ -1,11 +1,18 @@
+# Temp files
 *~
 *.swp
 *.DS_Store
 *.idea
+*.xml
+
+# Data files
+*.data
+creds/*.json
 
 # Compiled code
+bin/
+__pycache__
 *.class
 *.o
+*.pyc
 
-.DS_Store
-*.xml
