@@ -8,6 +8,8 @@
 # Data files
 *.data
 creds/*.json
+uploads/*.png
+uploads/*.jpg
 
 # Compiled code
 bin/
