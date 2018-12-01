@@ -9,7 +9,7 @@ Input: JSON
 
 Output: JSON
 
-Libraries: `google-auth` `google-auth-oauthlib` `flask` `face_recognition`
+Libraries: `face_recognition flask google-api-python-client google-auth google-auth-oauthlib`
 
 Install neccessary libraries with `pip`
 
@@ -31,8 +31,7 @@ The client will send a POST request encoded with `multipart/form-data`. The serv
 ```
 
 ### Output
-The JSON output from the facial recognition program will be returned to the client, unmodified.
-
+The JSON output from the `facerec` module will be returned to the client.
 
 ### Modules
 
