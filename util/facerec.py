@@ -54,8 +54,8 @@ def recognize_face(path):
         return "None" 
     test_face_encoding = face_recognition.face_encodings(test_image)[0]
     # results is an array of True/False telling if the unknown face matched anyone in the known_faces array
-    results = face_recognition.compare_faces(face_encoding_set, test_face_encoding)
-    print("Is this a new face? {}".format(not True in results))
+    results = face_recognition.compare_faces(face_encoding_set, test_face_encoding, tolerance=0.4)
+    # print("Is this a new face? {}".format(not True in results))
     for i in range(len(results)):
         if results[i]:
             print("The test is same as person")
