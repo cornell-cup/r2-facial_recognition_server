@@ -6,7 +6,15 @@ from googleapiclient import discovery
 from . import creds
 
 service = None
+'''
+meeting:
+time, day of week (dow), groups allowed
 
+people:
+group
+
+day of week 0-6
+'''
 CHECK_IN_STATUSES = {
     1: "Success",
     2: "Failed",
