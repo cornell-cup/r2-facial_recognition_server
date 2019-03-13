@@ -1,4 +1,5 @@
 import json
+
 meeting = {
 	"R2":[
 		{
@@ -17,7 +18,7 @@ meeting = {
 			"dayofWeek": "Wednesday"
 		},
 	],
-	"BuddyBot":[
+	"Minibot":[
 		{
 			"name" : "SaturdayMeeting",
 			"time": 12,
@@ -43,23 +44,22 @@ meeting = {
 		{
 			"name": "Dave meeting",
 			"time": 17,
-			"dayofWeek": "Friday"
+			"dayofWeek": "Thursday"
 		},
 		{
 			"name": "Weekly work meeting",
-			"time": 17,
-			"dayofWeek": "Wednesday"
+			"time": 16,
+			"dayofWeek": "Friday"
 		},
 	]
 
 }
 
 
-Member = {
-    "R2":["Ian", "Jordan","David","Stanley","Charles","Varun","Yanchen","Zhen","Renee","Angela"
+member = {
+	"R2":["Ian", "Jordan","David","Stanley","Charles","Varun","Yanchen","Zhen","Renee","Angela"
           ,"Wendy","Jackie","Yuanxin","Scott","Fareeza" ,"Charu","Bryce","Emily","Dylan","Tobias"],
-    "Communication":[],
-    "Buddybot":["Rishi", "Kathy"],
+    "Communication":["Shelley", "Samuel", "Kuan", "Grant", "Victoria"],
     "Minibot":["Marcus", "Ananth", "Stefen", "Dongqing" , "Zoltan", "Kabir", "Dakota","Alberto",
-               "Shiang-Wan","Sophie","Shubham","Richard"]
+               "Shiang-Wan","Sophie","Shubham","Richard","Rishi", "Kathy"]
 }

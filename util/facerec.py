@@ -3,6 +3,7 @@ import glob
 import pickle
 import json
 import datetime
+from util import meeting
 
 """
 How to use this module:
@@ -91,7 +92,7 @@ def checkAttendance(face_name):
         return parseToJson(face_name, "fail", 999)
 
     if(face_name):
-        status_request == "fail"
+        (name, meetingName, late) = meeting.PersonLate(face_name)
     else:
         status_request == "success"
 
