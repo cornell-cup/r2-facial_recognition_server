@@ -1,5 +1,5 @@
 import hashlib
-import facerec
+from util import facerec
 
 import os
 
@@ -11,12 +11,12 @@ def hexify(f):
     hash_func.update(f.read())
     return hash_func.digest()
 
-def face_exists(name, upload_dir):
+def face_exists(upload_dir, upload_file):
     '''
     Check if an image with the passed in name exists
     '''
     name = facerec.recognize_face(os.path.join(
         upload_dir,
-        "test.png"))
+        upload_file))
     return not(name == None or name == "None")
 

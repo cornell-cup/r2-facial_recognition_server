@@ -1,5 +1,5 @@
 import os, sys
-from flask import Flask, request
+from flask import Flask, request, make_response
 
 from util import facerec
 from util import sheets
@@ -8,7 +8,8 @@ from util import learnface
 app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "uploads"
-app.config["SAVE_TEST_FOLDER"] = "test_friends"
+app.config["UPLOAD_FILENAME"] = "test.png"
+app.config["SAVE_TEST_DIR"] = "test_friends"
 
 @app.route("/locate-face", methods=["POST"])
 def locate_face():
@@ -28,22 +29,25 @@ def save_face():
 
     file.save(os.path.join(
         app.config["UPLOAD_FOLDER"],
-        "temp.png"))
+        app.config["UPLOAD_FILENAME"]))
     
-    if face_exists(name):
+    if learnface.face_exists(
+            app.config["UPLOAD_FOLDER"],
+            app.config["UPLOAD_FILENAME"]):
         print("exists")
         #return "exists"
-        return make_response(300)
+        return make_response(("Face exists", 300))
 
-    f = open("%s%s"%(app.config["UPLOAD_FOLDER"], "temp.png"), "rb")
+    f = open(os.path.join(app.config["UPLOAD_FOLDER"],
+        app.config["UPLOAD_FILENAME"]), "rb")
     
-    hexed = hexify(file)
+    hexed = learnface.hexify(file)
 
     file.save(os.path.join(
-        app.config["SAVE_TEST_FOLDER"],
-        "%s%s.JPG"%(hexed, name)))
+        app.config["SAVE_TEST_DIR"],
+        "%s%s.jpg"%(hexed, name)))
     
-    return make_response(200)
+    return make_response(("OK", 200))
 
 #call the facial recognition library code
 @app.route("/identify-face", methods=["POST"])
@@ -56,11 +60,11 @@ def identify_face():
 
     file.save(os.path.join(
         app.config["UPLOAD_FOLDER"],
-        "test.png"))
+        app.config["UPLOAD_FILENAME"]))
     
     name = facerec.recognize_face(os.path.join(
         app.config["UPLOAD_FOLDER"],
-        "test.png"))
+        app.config["UPLOAD_FILENAME"]))
     
     return facerec.checkAttendance(name)
 
