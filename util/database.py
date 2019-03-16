@@ -8,12 +8,12 @@ meeting = {
 			"dayofWeek": "Saturday"
 		},
 		{
-			"name": "Dave meeting",
+			"name": "R2 Dave meeting",
 			"time": 17,
 			"dayofWeek": "Friday"
 		},
 		{
-			"name": "Weekly work meeting",
+			"name": "R2 Weekly work meeting",
 			"time": 17,
 			"dayofWeek": "Wednesday"
 		},
@@ -25,12 +25,12 @@ meeting = {
 			"dayofWeek": "Saturday"
 		},
 		{
-			"name": "Dave meeting",
+			"name": "Minibot Dave meeting",
 			"time": 17,
-			"dayofWeek": "Friday"
+			"dayofWeek": "Thursday"
 		},
 		{
-			"name": "Weekly work meeting",
+			"name": "Minibot Weekly work meeting",
 			"time": 17,
 			"dayofWeek": "Wednesday"
 		},
@@ -42,12 +42,12 @@ meeting = {
 			"dayofWeek": "Saturday"
 		},
 		{
-			"name": "Dave meeting",
+			"name": "Communication Dave meeting",
 			"time": 17,
 			"dayofWeek": "Thursday"
 		},
 		{
-			"name": "Weekly work meeting",
+			"name": "Communication Weekly work meeting",
 			"time": 16,
 			"dayofWeek": "Friday"
 		},

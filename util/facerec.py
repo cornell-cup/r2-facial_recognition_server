@@ -87,37 +87,38 @@ Output: a json | the person's check-in data in json format
 def checkAttendance(face_name):
     # define a empty input name exception for null input
     # Name
-    status_request = "";
+    status = 0
+    meeting_type = 0
     if face_name == "None":
         return parseToJson(face_name, "fail", 999)
 
     if(face_name):
         (name, meetingName, late) = meeting.PersonLate(face_name)
-    else:
-        status_request == "success"
 
-    # timeCheck
-    now_time = datetime.datetime.now()
-    today12pm = datetime.time(hour=12)
-
-    # Status(need to update)
-    # status_on_time = now_time <= today12pm
-    status_on_time = True
-
-    # MeetingType(need to update)
-    meeting_type = 1
+    if meetingName == "SaturdayMeeting":
+        meeting_type = 1
+    if meetingName == "R2 Dave meeting":
+        meeting_type = 2
+    if meetingName == "R2 Weekly work meeting":
+        meeting_type = 3
+    if meetingName == "Minibot Dave meeting":
+        meeting_type = 4
+    if meetingName == "Minibot Weekly work meeting":
+        meeting_type = 5
+    if meetingName == "Communication Dave meeting":
+        meeting_type = 6
+    if meetingName == "Communication Weekly work meeting":
+        meeting_type = 7
 
     # check already checked in or not
     if checkIfCheckedIn(face_name):
-        status = 3
-    else:  # check this person in
-        if status_request == "success":  # input statues
-            if status_on_time:
-                status = 1  # success
-            else:
-                status = 4  # late
-        else:
-            status = 2  # fail
+        status = 3 #
+    if late:
+        status = 4 #late
+    if not face_name:
+        status = 2 # fail
+    else:
+        status = 1 #check in
 
     return parseToJson(face_name, status, meeting_type)
 
