@@ -165,6 +165,9 @@ def add_attendance(json_data, spreadsheet_id, sheet_name="Sheet1"):
         ]
     ]
     add_row(values, spreadsheet_id)
+
+def is_checked_in(name):
+    pass
     
 if __name__ == "__main__":
     init()
