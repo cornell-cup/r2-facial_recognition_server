@@ -3,13 +3,14 @@ from util import facerec
 
 import os
 
-def hexify(f):
+def hexify(dirname, filename):
     '''
     Generates a hash from the given image
     '''
     hash_func = hashlib.sha256()
-    hash_func.update(f.read())
-    return hash_func.digest()
+    with open(os.path.join(dirname, filename), "rb") as f:
+        hash_func.update(f.read())
+    return hash_func.hexdigest()
 
 def face_exists(upload_dir, upload_file):
     '''

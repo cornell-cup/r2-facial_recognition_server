@@ -34,18 +34,30 @@ def save_face():
     if learnface.face_exists(
             app.config["UPLOAD_FOLDER"],
             app.config["UPLOAD_FILENAME"]):
-        print("exists")
+        #print("exists")
         #return "exists"
         return make_response(("Face exists", 300))
 
+    hexed = learnface.hexify(
+            app.config["UPLOAD_FOLDER"],
+            app.config["UPLOAD_FILENAME"])
+    
     f = open(os.path.join(app.config["UPLOAD_FOLDER"],
         app.config["UPLOAD_FILENAME"]), "rb")
-    
-    hexed = learnface.hexify(file)
-
+    '''
     file.save(os.path.join(
         app.config["SAVE_TEST_DIR"],
         "%s%s.jpg"%(hexed, name)))
+    '''
+    
+    newfile = open(os.path.join(
+        app.config["SAVE_TEST_DIR"],
+        "%s%s.jpg"%(hexed, name)),
+        "wb")
+    newfile.write(f.read())
+    
+    newfile.close()
+    f.close()
     
     return make_response(("OK", 200))
 
