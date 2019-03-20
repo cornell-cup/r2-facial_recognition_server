@@ -25,31 +25,30 @@ def save_face():
     '''
     file = request.files["image"]
     name = request.form["name"]
-    #name = "bob"
 
     file.save(os.path.join(
         app.config["UPLOAD_FOLDER"],
         app.config["UPLOAD_FILENAME"]))
     
+    '''
+    https://stackoverflow.com/questions/16133923/
+    400-vs-422-response-to-post-of-data
+    '''
     if learnface.face_exists(
             app.config["UPLOAD_FOLDER"],
             app.config["UPLOAD_FILENAME"]):
-        #print("exists")
-        #return "exists"
-        return make_response(("Face exists", 300))
+        return make_response(("Face exists", 422))
 
+    #get hash of the image, to differentiate
+    #between people with the same name
     hexed = learnface.hexify(
             app.config["UPLOAD_FOLDER"],
             app.config["UPLOAD_FILENAME"])
     
     f = open(os.path.join(app.config["UPLOAD_FOLDER"],
         app.config["UPLOAD_FILENAME"]), "rb")
-    '''
-    file.save(os.path.join(
-        app.config["SAVE_TEST_DIR"],
-        "%s%s.jpg"%(hexed, name)))
-    '''
     
+    #save the new face
     newfile = open(os.path.join(
         app.config["SAVE_TEST_DIR"],
         "%s%s.jpg"%(hexed, name)),
