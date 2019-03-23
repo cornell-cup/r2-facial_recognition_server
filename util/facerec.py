@@ -65,7 +65,8 @@ def recognize_face(path):
             for image_name in glob.glob('face_set/*.jpg'):
                 if count == i:
                     face_name = image_name.replace("face_set/", "").replace(".jpg", "")
-                    return face_name
+                    #return the name from 65th character to the end, truncating the hash
+                    return face_name[65:]
                     break;
                 count += 1
             break
@@ -113,9 +114,9 @@ def checkAttendance(face_name):
     # check already checked in or not
     if checkIfCheckedIn(face_name):
         status = 3 #
-    if late:
+    elif late:
         status = 4 #late
-    if not face_name:
+    elif not face_name:
         status = 2 # fail
     else:
         status = 1 #check in
