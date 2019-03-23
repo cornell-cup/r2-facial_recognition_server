@@ -70,6 +70,7 @@ def recognize_face(path):
                     break;
                 count += 1
             break
+    print("nothing found")
 
 def get_new_image():
     return ""
