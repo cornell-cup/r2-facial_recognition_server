@@ -88,6 +88,7 @@ Output: a json | the person's check-in data in json format
 def checkAttendance(face_name):
     # define a empty input name exception for null input
     # Name
+    print("checkAttendance checking:")
     meeting_type = 0
     meetingName = ""
     late = 0
