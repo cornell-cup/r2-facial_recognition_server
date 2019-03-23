@@ -1,7 +1,7 @@
 import json
 from time import time, localtime, strftime
 import datetime
-from util import database
+from util import database, meeting
 
 ISOTIMEFORMAT='%Y-%m-%d %X'
 meeting = json.load(database.meeting)
