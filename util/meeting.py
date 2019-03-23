@@ -4,8 +4,8 @@ import datetime
 from util import database, meeting
 
 ISOTIMEFORMAT='%Y-%m-%d %X'
-meeting = json.load(database.meeting)
-member = json.load(database.member)
+meeting = json.loads(json.dumps(database.meeting))
+member = json.loads(json.dumps(database.member))
 
 #get what date is it today
 def getWeekn():

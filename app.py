@@ -85,6 +85,6 @@ def root():
 
 print("Server initializing...")
 facerec.import_headshot_set()
-#sheets.init()
+sheets.init()
 print("Server ready")
 

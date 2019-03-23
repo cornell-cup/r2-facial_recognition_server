@@ -16,7 +16,7 @@ meeting = {
 			"name": "R2 Weekly work meeting",
 			"time": 17,
 			"dayofWeek": "Wednesday"
-		},
+		}
 	],
 	"Minibot":[
 		{
@@ -33,7 +33,7 @@ meeting = {
 			"name": "Minibot Weekly work meeting",
 			"time": 17,
 			"dayofWeek": "Wednesday"
-		},
+		}
 	],
 	"Communication": [
 		{
@@ -50,7 +50,7 @@ meeting = {
 			"name": "Communication Weekly work meeting",
 			"time": 16,
 			"dayofWeek": "Friday"
-		},
+		}
 	]
 
 }
