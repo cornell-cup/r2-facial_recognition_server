@@ -122,7 +122,7 @@ def checkAttendance(face_name):
         status = 4 #late
     if not face_name:
         status = 2 # fail
-
+    print("this person is :", face_name, "   status:", status, "   meeting_type", meeting_type)
     return parseToJson(face_name, status, meeting_type)
 
 # check if the person has check in
