@@ -26,8 +26,10 @@ MEETING_TYPES = {
     1: "Saturday work meeting",
     2: "R2 Dave meeting",
     3: "R2 weekly work meeting",
-    4: "Labo Dave meeting",
-    5: "Labo weekly work meeting"
+    4: "Minibot Dave meeting",
+    5: "Minibot weekly work meeting",
+    6: "Communication Dave meeting",
+    7: "Communication Weekly work meeting"
 }
 
 def init():

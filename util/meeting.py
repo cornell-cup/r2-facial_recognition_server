@@ -24,11 +24,11 @@ def PersonLate(name):
    team = ""
    meetinghour = 0
    meetingName = ""
-   if member["R2"].contains(name):
+   if name in member["R2"]:
        team = "R2"
-   if member["Communication"].contains(name):
+   if name in member["Communication"]:
        team = "Communication"
-   if member["Minibot"].contains(name):
+   if name in member["Minibot"]:
        team = "Minibot"
 
    today = getWeekn()
