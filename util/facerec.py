@@ -66,6 +66,7 @@ def recognize_face(path):
                 if count == i:
                     face_name = image_name.replace("face_set/", "").replace(".jpg", "")
                     #return the name from 65th character to the end, truncating the hash
+                    print("face_name is ", face_name)
                     return face_name[65:]
                     break;
                 count += 1
