@@ -4,6 +4,7 @@ from pprint import pprint
 from googleapiclient import discovery
 
 from . import creds
+#import creds
 
 service = None
 '''
@@ -87,6 +88,20 @@ def create_spreadsheet(spreadsheet_name):
             }
         ]
     }
+    '''
+    ,
+        "developerMetadata": [
+            {
+                "metadataKey": "signedInMembers",
+                "metadataValue": "",
+                "location": {
+                    "spreadsheet": ,
+                    
+                },
+                "visibility": "PROJECT"
+            }
+        ]
+    '''
 
     request = service.spreadsheets().create(body=new_spreadsheet)
 
@@ -168,22 +183,31 @@ def add_attendance(json_data, spreadsheet_id, sheet_name="Sheet1"):
     ]
     add_row(values, spreadsheet_id)
 
-def is_checked_in(name):
-    pass
+def is_checked_in(name, spreadsheet_id):
+    result = service.spreadsheets().values().get(
+        spreadsheetId=spreadsheet_id,
+        range="Sheet1!A:A",
+        majorDimension="COLUMNS"
+    ).execute()
+    
+    return name in result["values"][0]
     
 if __name__ == "__main__":
     init()
-    spread_id = create_spreadsheet("hi there")
-    #spread_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
+    #spread_id = create_spreadsheet("hi there")
+    spread_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
     '''
     add_row([
         ["Billy Jones", "R2 Weekly", 1243215453, "Late"]
     ])
+    '''
     '''
     add_attendance({
         "name": "Billy Jones",
         "meetingType": 1,
         "checkInStatus": 4
     }, spread_id)
+    '''
+    print(is_checked_in("Billy Jones", spread_id))
 
 
