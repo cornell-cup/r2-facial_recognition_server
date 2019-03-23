@@ -88,13 +88,16 @@ Output: a json | the person's check-in data in json format
 def checkAttendance(face_name):
     # define a empty input name exception for null input
     # Name
-    status = 0
     meeting_type = 0
+    meetingName = ""
+    late = 0
     if face_name == "None":
         return parseToJson(face_name, "fail", 999)
 
     if(face_name):
-        (name, meetingName, late) = meeting.PersonLate(face_name)
+        (name, m, l) = meeting.PersonLate(face_name)
+        meetingName = m
+        late = l
 
     if meetingName == "SaturdayMeeting":
         meeting_type = 1
@@ -112,14 +115,13 @@ def checkAttendance(face_name):
         meeting_type = 7
 
     # check already checked in or not
+    status = 1 #success
     if checkIfCheckedIn(face_name):
-        status = 3 #
-    elif late:
+        status = 3 #Already checked in
+    if late:
         status = 4 #late
-    elif not face_name:
+    if not face_name:
         status = 2 # fail
-    else:
-        status = 1 #check in
 
     return parseToJson(face_name, status, meeting_type)
 
