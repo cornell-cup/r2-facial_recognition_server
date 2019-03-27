@@ -3,8 +3,8 @@ import datetime
 from pprint import pprint
 from googleapiclient import discovery
 
-from . import creds
-#import creds
+#from . import creds
+import creds
 
 service = None
 '''
@@ -44,9 +44,10 @@ def init():
     #credentials = creds.get_service_credentials("creds/sheets-test-secret.json")
     service = discovery.build("sheets", "v4", credentials=credentials)
 
-def create_spreadsheet(spreadsheet_name):
+def create_spreadsheet(spreadsheet_name, sheet_name):
     '''
-        Create a new attendance spreadsheet
+        Create a new attendance spreadsheet with name spreadsheet_name
+        The first sheet is named sheet_name
 
         Returns the created spreadsheet's id
     '''
@@ -60,7 +61,7 @@ def create_spreadsheet(spreadsheet_name):
             {
                 "properties": {
                     "sheetId": 0,
-                    "title": "Sheet1",
+                    "title": sheet_name,
                     "gridProperties": {
                         "frozenRowCount": 1
                     }
@@ -108,7 +109,7 @@ def create_spreadsheet(spreadsheet_name):
     new_sheet = request.execute()
     return new_sheet["spreadsheetId"]
 
-def add_data():
+def add_test_data():
     '''
     Adds test data
     '''
@@ -130,6 +131,36 @@ def add_data():
             valueInputOption=value_input_option)
     response = request.execute()
     pprint(response)
+
+def add_sheet(spreadsheet_id, sheet_name):
+    '''
+    Adds a new sheet
+    '''
+    body = {
+        "requests": [ 
+            {
+                "addSheet": {
+                    "properties": {
+                        "title": sheet_name,
+                        "gridProperties": {
+                            "frozenRowCount": 1
+                        }
+                    }
+                }
+            }
+        ]
+    }
+    request = service.spreadsheets().batchUpdate(
+        spreadsheetId=spreadsheet_id,
+        body=body
+    )
+
+    response = request.execute()
+    pprint(response)
+
+    #now set up header row
+    add_row([["Name", "Meeting Type", "Time", "Check-in Status"]],
+            spreadsheet_id, sheet_name)
 
 def add_row(values, spreadsheet_id, sheet_name="Sheet1"):
     '''
@@ -183,10 +214,10 @@ def add_attendance(json_data, spreadsheet_id, sheet_name="Sheet1"):
     ]
     add_row(values, spreadsheet_id)
 
-def is_checked_in(name, spreadsheet_id):
+def is_checked_in(name, spreadsheet_id, sheet_name):
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheet_id,
-        range="Sheet1!A:A",
+        range="%s!A:A"%(sheet_name),
         majorDimension="COLUMNS"
     ).execute()
     
@@ -208,6 +239,7 @@ if __name__ == "__main__":
         "checkInStatus": 4
     }, spread_id)
     '''
-    print(is_checked_in("Billy Jones", spread_id))
+    print(is_checked_in("Billy Jones", spread_id, "Sheet1"))
+    #add_sheet(spread_id, "new sheet")
 
 
