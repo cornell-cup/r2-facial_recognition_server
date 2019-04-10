@@ -5,6 +5,7 @@ from googleapiclient import discovery
 
 #from . import creds
 import creds
+import database
 
 service = None
 '''
@@ -132,10 +133,19 @@ def add_test_data():
     response = request.execute()
     pprint(response)
 
-def add_sheet(spreadsheet_id, sheet_name):
+def add_sheet(spreadsheet_id, sheet_name, header_row):
     '''
     Adds a new sheet
+    header_row: the names of the columns of the sheet.
+        a length 1 list containing a list of strings
+        ex: [["header1", "header2"]]
+
+    returns sheetId
     '''
+    if len(header_row) != 1:
+        print("header_row must be length 1")
+        return
+
     body = {
         "requests": [ 
             {
@@ -159,8 +169,10 @@ def add_sheet(spreadsheet_id, sheet_name):
     pprint(response)
 
     #now set up header row
-    add_row([["Name", "Meeting Type", "Time", "Check-in Status"]],
+    add_row(header_row,
             spreadsheet_id, sheet_name)
+    
+    return response.sheetId
 
 def add_row(values, spreadsheet_id, sheet_name="Sheet1"):
     '''
@@ -214,6 +226,30 @@ def add_attendance(json_data, spreadsheet_id, sheet_name="Sheet1"):
     ]
     add_row(values, spreadsheet_id)
 
+def generate_stats_sheet(spreadsheet_id):
+    '''
+    Creates a new timestamped sheet displaying attendance
+    statistics on team members
+
+    Generates a pivot table in a new sheet
+    '''
+    sheet_name = "Attendance Statistics"
+    body = {
+        "requests": [
+            {
+                "updateCells": {
+                    "rows": [],
+                    "fields": "",
+                    "start": {
+                        "sheetId": ,
+                        "rowIndex": ,
+                        "columnIndex": 
+                    }
+                }
+            }
+        ]
+    }
+
 def is_checked_in(name, spreadsheet_id, sheet_name):
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheet_id,
@@ -240,6 +276,6 @@ if __name__ == "__main__":
     }, spread_id)
     '''
     print(is_checked_in("Billy Jones", spread_id, "Sheet1"))
-    #add_sheet(spread_id, "new sheet")
+    #add_sheet(spread_id, "new sheet", [["herp", "derp"]])
 
 
