@@ -310,6 +310,10 @@ def is_checked_in(name, spreadsheet_id, sheet_name):
 if __name__ == "__main__":
     init()
     #spread_id = create_spreadsheet("hi there")
+    '''
+    Note: spreadsheet id is in url of the sheet
+    ie. spreadsheets/d/<id>/edit
+    '''
     spread_id = "10knpZyzaytlyvhTeg3tshXjZ-j6E2nCRz3xBQikZGwQ"
     '''
     add_row([
