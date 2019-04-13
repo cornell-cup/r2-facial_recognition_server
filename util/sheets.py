@@ -34,6 +34,8 @@ MEETING_TYPES = {
     7: "Communication Weekly work meeting"
 }
 
+ATTENDANCE_SHEET_ID = 0
+
 def init():
     '''
         Obtains credentials and sets up the sheets service
@@ -61,7 +63,7 @@ def create_spreadsheet(spreadsheet_name, sheet_name):
         "sheets": [
             {
                 "properties": {
-                    "sheetId": 0,
+                    "sheetId": ATTENDANCE_SHEET_ID,
                     "title": sheet_name,
                     "gridProperties": {
                         "frozenRowCount": 1
@@ -133,7 +135,8 @@ def add_test_data():
     response = request.execute()
     pprint(response)
 
-def add_sheet(spreadsheet_id, sheet_name, header_row):
+def add_sheet(spreadsheet_id, sheet_name, header_row,
+        frozen_row_count):
     '''
     Adds a new sheet
     header_row: the names of the columns of the sheet.
@@ -153,7 +156,7 @@ def add_sheet(spreadsheet_id, sheet_name, header_row):
                     "properties": {
                         "title": sheet_name,
                         "gridProperties": {
-                            "frozenRowCount": 1
+                            "frozenRowCount": frozen_row_count
                         }
                     }
                 }
@@ -165,14 +168,15 @@ def add_sheet(spreadsheet_id, sheet_name, header_row):
         body=body
     )
 
+    import json
     response = request.execute()
-    pprint(response)
+    pprint(json.dumps(response))
 
     #now set up header row
     add_row(header_row,
             spreadsheet_id, sheet_name)
     
-    return response.sheetId
+    return response["replies"][0]["addSheet"]["properties"]["sheetId"]
 
 def add_row(values, spreadsheet_id, sheet_name="Sheet1"):
     '''
@@ -231,24 +235,68 @@ def generate_stats_sheet(spreadsheet_id):
     Creates a new timestamped sheet displaying attendance
     statistics on team members
 
-    Generates a pivot table in a new sheet
+    Generates a pivot table in dest_sheet (a number)
     '''
-    sheet_name = "Attendance Statistics"
+    sheet_name = "Attendance Statistics %s"%(str(datetime.datetime.now()))
+    dest_sheet = add_sheet(spreadsheet_id, sheet_name, [[]], 2)
     body = {
         "requests": [
             {
                 "updateCells": {
-                    "rows": [],
-                    "fields": "",
+                    "rows": [
+                        {
+                            "values": [
+                                {
+                                    "pivotTable": {
+                                        "source": {
+                                            "sheetId": ATTENDANCE_SHEET_ID,
+                                            "startRowIndex": 0,
+                                            #"endRowIndex": , (so unbounded)
+                                            "startColumnIndex": 0,
+                                            "endColumnIndex": 4     #exclusive
+                                        },
+                                        "rows": [
+                                            {
+                                                "sourceColumnOffset": 0,
+                                                "showTotals": True,
+                                                "sortOrder": "DESCENDING"
+                                            }
+                                        ],
+                                        "columns": [
+                                            {
+                                                "sourceColumnOffset": 3,
+                                                "showTotals": True,
+                                                "sortOrder": "DESCENDING"
+                                            }
+                                        ],
+                                        "values": [
+                                            {
+                                                "summarizeFunction": "COUNTA",
+                                                "sourceColumnOffset": "3"
+                                            }
+                                        ],
+                                        "valueLayout": "HORIZONTAL"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "fields": "pivotTable",
                     "start": {
-                        "sheetId": ,
-                        "rowIndex": ,
-                        "columnIndex": 
+                        "sheetId": dest_sheet,
+                        "rowIndex": 0,
+                        "columnIndex": 0
                     }
                 }
             }
         ]
     }
+
+    request = service.spreadsheets() \
+        .batchUpdate(spreadsheetId=spreadsheet_id, body=body)
+
+    response = request.execute()
+    pprint(response)
 
 def is_checked_in(name, spreadsheet_id, sheet_name):
     result = service.spreadsheets().values().get(
@@ -268,14 +316,51 @@ if __name__ == "__main__":
         ["Billy Jones", "R2 Weekly", 1243215453, "Late"]
     ])
     '''
+    test_data = [
+        {
+            "name": "Jessie",
+            "meetingType": 1,
+            "checkInStatus": 1
+        },
+        {
+            "name": "Jessie",
+            "meetingType": 1,
+            "checkInStatus": 1
+        },
+        {
+            "name": "Jessie",
+            "meetingType": 6,
+            "checkInStatus": 4
+        },
+        {
+            "name": "Jessie",
+            "meetingType": 6,
+            "checkInStatus": 4
+        },
+        {
+            "name": "George",
+            "meetingType": 3,
+            "checkInStatus": 1
+        },
+        {
+            "name": "Jessie",
+            "meetingType": 2,
+            "checkInStatus": 4
+        },
+    ]
+    '''
+    for data in test_data:
+        add_attendance(data, spread_id)
+    '''
     '''
     add_attendance({
-        "name": "Billy Jones",
+        "name": "Jessie",
         "meetingType": 1,
-        "checkInStatus": 4
+        "checkInStatus": 0
     }, spread_id)
     '''
-    print(is_checked_in("Billy Jones", spread_id, "Sheet1"))
-    #add_sheet(spread_id, "new sheet", [["herp", "derp"]])
+    #print(is_checked_in("Billy Jones", spread_id, "Sheet1"))
+    #sheet_id = add_sheet(spread_id, "new sheet", [["herp", "derp"]])
+    generate_stats_sheet(spread_id)
 
 
