@@ -124,6 +124,10 @@ def checkAttendance(face_name):
         status = 4 #late
     if not face_name:
         status = 2 # fail
+
+    status = 1 # for NASA event purpose
+    meeting_type = 1 # default
+    
     print("this person is :", face_name, "   status:", status, "   meeting_type", meeting_type)
     return parseToJson(face_name, status, meeting_type)
 
