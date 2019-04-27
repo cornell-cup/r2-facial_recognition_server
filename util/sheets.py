@@ -3,9 +3,12 @@ import datetime
 from pprint import pprint
 from googleapiclient import discovery
 
-#from . import creds
-import creds
-import database
+if __name__ == "__main__":
+    import creds
+    import database
+else:
+    from . import creds
+    from . import database
 
 service = None
 '''
