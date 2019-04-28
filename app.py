@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
 app.config["UPLOAD_FILENAME"] = "test.png"
 app.config["SAVE_TEST_DIR"] = "test_friends"
+app.config["FACE_SET_DIR"] = "face_set"
 
 @app.route("/locate-face", methods=["POST"])
 def locate_face():
@@ -50,7 +51,7 @@ def save_face():
     
     #save the new face
     newfile = open(os.path.join(
-        app.config["SAVE_TEST_DIR"],
+        app.config["FACE_SET_DIR"],
         "%s%s.jpg"%(hexed, name)),
         "wb")
     newfile.write(f.read())
