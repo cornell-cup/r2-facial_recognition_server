@@ -19,5 +19,6 @@ def face_exists(upload_dir, upload_file):
     name = facerec.recognize_face(os.path.join(
         upload_dir,
         upload_file))
+    print("face_exists test: %s"%(name))
     return not(name == None or name == "None")
 

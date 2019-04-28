@@ -31,6 +31,7 @@ def PersonLate(name):
    if name in member["Minibot"]:
        team = "Minibot"
 
+   '''
    today = getWeekn()
    meetingslst = meeting[team]
    for m in meetingslst:
@@ -40,6 +41,8 @@ def PersonLate(name):
 
    late = isLate(meetinghour)
    return (name, meetingName, late)
+   '''
+   return (name, "NASA", False)
 
 
 
