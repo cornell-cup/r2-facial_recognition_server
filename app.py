@@ -49,12 +49,19 @@ def save_face():
     f = open(os.path.join(app.config["UPLOAD_FOLDER"],
         app.config["UPLOAD_FILENAME"]), "rb")
     
+    newfilename = "%s%s.jpg"%(hexed, name)
     #save the new face
     newfile = open(os.path.join(
         app.config["FACE_SET_DIR"],
-        "%s%s.jpg"%(hexed, name)),
+        newfilename),
         "wb")
     newfile.write(f.read())
+
+    facerec.import_headshot(
+            os.path.join(
+                app.config["FACE_SET_DIR"],
+                newfilename),
+            True)
     
     newfile.close()
     f.close()
