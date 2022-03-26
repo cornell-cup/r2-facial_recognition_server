@@ -1,9 +1,8 @@
-import os, sys
+import os
 from flask import Flask, request, make_response
 
-from util import facerec
-from util import sheets
-from util import learnface
+from r2_facial_recognition.server.util import facerec, sheets
+from r2_facial_recognition.server.util import learnface
 
 app = Flask(__name__)
 
@@ -85,7 +84,7 @@ def identify_face():
         app.config["UPLOAD_FOLDER"],
         app.config["UPLOAD_FILENAME"]))
     
-    return facerec.checkAttendance(name)
+    return facerec.check_attendance(name)
 
 @app.route("/")
 def root():
