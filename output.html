@@ -1,0 +1,743 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>sqlalchemy.exc.ArgumentError: FROM expression, such as a Table or alias() object expected, got ('parent', {}). // Werkzeug Debugger</title>
+    <link rel="stylesheet" href="?__debugger__=yes&amp;cmd=resource&amp;f=style.css"
+        type="text/css">
+    <!-- We need to make sure this has a favicon so that the debugger does
+         not by accident trigger a request to /favicon.ico which might
+         change the application state. -->
+    <link rel="shortcut icon"
+        href="?__debugger__=yes&amp;cmd=resource&amp;f=console.png">
+    <script src="?__debugger__=yes&amp;cmd=resource&amp;f=jquery.js"></script>
+    <script src="?__debugger__=yes&amp;cmd=resource&amp;f=debugger.js"></script>
+    <script type="text/javascript">
+      var TRACEBACK = 139845855813584,
+          CONSOLE_MODE = false,
+          EVALEX = true,
+          EVALEX_TRUSTED = false,
+          SECRET = "atFuiZk9AquVz03eN48p";
+    </script>
+  </head>
+  <body style="background-color: #fff">
+    <div class="debugger">
+<h1>sqlalchemy.exc.ArgumentError</h1>
+<div class="detail">
+  <p class="errormsg">sqlalchemy.exc.ArgumentError: FROM expression, such as a Table or alias() object expected, got ('parent', {}).</p>
+</div>
+<h2 class="traceback">Traceback <em>(most recent call last)</em></h2>
+<div class="traceback">
+  
+  <ul><li><div class="frame" id="frame-139845855813360">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">2464</em>,
+      in <code class="function">__call__</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def __call__(self, environ, start_response):</pre>
+<pre class="line before"><span class="ws">        </span>&quot;&quot;&quot;The WSGI server calls the Flask application object as the</pre>
+<pre class="line before"><span class="ws">        </span>WSGI application. This calls :meth:`wsgi_app` which can be</pre>
+<pre class="line before"><span class="ws">        </span>wrapped to applying middleware.&quot;&quot;&quot;</pre>
+<pre class="line current"><span class="ws">        </span>return self.wsgi_app(environ, start_response)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def __repr__(self):</pre>
+<pre class="line after"><span class="ws">        </span>return &quot;&lt;%s %r&gt;&quot; % (self.__class__.__name__, self.name)</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846313612288">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">2450</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line before"><span class="ws">                </span>response = self.full_dispatch_request()</pre>
+<pre class="line before"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line before"><span class="ws">                </span>error = e</pre>
+<pre class="line current"><span class="ws">                </span>response = self.handle_exception(e)</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre>
+<pre class="line after"><span class="ws">                </span>raise</pre>
+<pre class="line after"><span class="ws">            </span>return response(environ, start_response)</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846294988336">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">1867</em>,
+      in <code class="function">handle_exception</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span># if we want to repropagate the exception, we can attempt to</pre>
+<pre class="line before"><span class="ws">            </span># raise it with the whole traceback in case we can do that</pre>
+<pre class="line before"><span class="ws">            </span># (the function was actually called from the except part)</pre>
+<pre class="line before"><span class="ws">            </span># otherwise, we just raise the error again</pre>
+<pre class="line before"><span class="ws">            </span>if exc_value is e:</pre>
+<pre class="line current"><span class="ws">                </span>reraise(exc_type, exc_value, tb)</pre>
+<pre class="line after"><span class="ws">            </span>else:</pre>
+<pre class="line after"><span class="ws">                </span>raise e</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>self.log_exception((exc_type, exc_value, tb))</pre>
+<pre class="line after"><span class="ws">        </span>server_error = InternalServerError()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846277150984">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py"</cite>,
+      line <em class="line">39</em>,
+      in <code class="function">reraise</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">    </span>import collections.abc as collections_abc</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def reraise(tp, value, tb=None):</pre>
+<pre class="line before"><span class="ws">        </span>if value.__traceback__ is not tb:</pre>
+<pre class="line before"><span class="ws">            </span>raise value.with_traceback(tb)</pre>
+<pre class="line current"><span class="ws">        </span>raise value</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>implements_to_string = _identity</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>else:</pre>
+<pre class="line after"><span class="ws">    </span>iterkeys = lambda d: d.iterkeys()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846295518008">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">2447</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>ctx = self.request_context(environ)</pre>
+<pre class="line before"><span class="ws">        </span>error = None</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line current"><span class="ws">                </span>response = self.full_dispatch_request()</pre>
+<pre class="line after"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">                </span>error = e</pre>
+<pre class="line after"><span class="ws">                </span>response = self.handle_exception(e)</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846295554424">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">1952</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>request_started.send(self)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line before"><span class="ws">                </span>rv = self.dispatch_request()</pre>
+<pre class="line before"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line current"><span class="ws">            </span>rv = self.handle_user_exception(e)</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(self, rv, from_error_handler=False):</pre>
+<pre class="line after"><span class="ws">        </span>&quot;&quot;&quot;Given the return value from a view function this finalizes</pre>
+<pre class="line after"><span class="ws">        </span>the request by converting it into a response and invoking the</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976560">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">1821</em>,
+      in <code class="function">handle_user_exception</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>return self.handle_http_exception(e)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>handler = self._find_error_handler(e)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>if handler is None:</pre>
+<pre class="line current"><span class="ws">            </span>reraise(exc_type, exc_value, tb)</pre>
+<pre class="line after"><span class="ws">        </span>return handler(e)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def handle_exception(self, e):</pre>
+<pre class="line after"><span class="ws">        </span>&quot;&quot;&quot;Handle an exception that did not have an error handler</pre>
+<pre class="line after"><span class="ws">        </span>associated with it, or that was raised from an error handler.</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976616">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py"</cite>,
+      line <em class="line">39</em>,
+      in <code class="function">reraise</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">    </span>import collections.abc as collections_abc</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def reraise(tp, value, tb=None):</pre>
+<pre class="line before"><span class="ws">        </span>if value.__traceback__ is not tb:</pre>
+<pre class="line before"><span class="ws">            </span>raise value.with_traceback(tb)</pre>
+<pre class="line current"><span class="ws">        </span>raise value</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>implements_to_string = _identity</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>else:</pre>
+<pre class="line after"><span class="ws">    </span>iterkeys = lambda d: d.iterkeys()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976392">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">1950</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>self.try_trigger_before_first_request_functions()</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>request_started.send(self)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line current"><span class="ws">                </span>rv = self.dispatch_request()</pre>
+<pre class="line after"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">            </span>rv = self.handle_user_exception(e)</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(self, rv, from_error_handler=False):</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976728">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py"</cite>,
+      line <em class="line">1936</em>,
+      in <code class="function">dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>getattr(rule, &quot;provide_automatic_options&quot;, False)</pre>
+<pre class="line before"><span class="ws">            </span>and req.method == &quot;OPTIONS&quot;</pre>
+<pre class="line before"><span class="ws">        </span>):</pre>
+<pre class="line before"><span class="ws">            </span>return self.make_default_options_response()</pre>
+<pre class="line before"><span class="ws">        </span># otherwise dispatch to the handler for that endpoint</pre>
+<pre class="line current"><span class="ws">        </span>return self.view_functions[rule.endpoint](**req.view_args)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def full_dispatch_request(self):</pre>
+<pre class="line after"><span class="ws">        </span>&quot;&quot;&quot;Dispatches the request and on top of that performs request</pre>
+<pre class="line after"><span class="ws">        </span>pre and postprocessing as well as HTTP exception catching and</pre>
+<pre class="line after"><span class="ws">        </span>error handling.</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976784">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/views/facial_recognition.py"</cite>,
+      line <em class="line">33</em>,
+      in <code class="function">detect</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>unknown_img = np.frombuffer(request.files['image']) \</pre>
+<pre class="line before"><span class="ws">                </span>if 'image' in request.files else None</pre>
+<pre class="line before"><span class="ws">            </span>unknown_encodings = np.frombuffer(request.files['encoding']) \</pre>
+<pre class="line before"><span class="ws">                </span>if 'encoding' in request.files else None</pre>
+<pre class="line current"><span class="ws">            </span>compare_faces(unknown_img, unknown_encodings)</pre>
+<pre class="line after"><span class="ws">        </span>except ValueError:</pre>
+<pre class="line after"><span class="ws">            </span>return '400 - Bad request', 400</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>elif request.method == 'GET':</pre>
+<pre class="line after"><span class="ws">        </span># TODO: Implement me, check args and grab base64</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976448">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/recognition.py"</cite>,
+      line <em class="line">56</em>,
+      in <code class="function">compare_faces</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">        </span>db.session.commit()</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span>def compare_faces(img: Optional[np.ndarray] = None,</pre>
+<pre class="line before"><span class="ws">                  </span>encodings: Optional[List[np.ndarray]] = None):</pre>
+<pre class="line current"><span class="ws">    </span>all_people = People.query.order_by(People.id).all()</pre>
+<pre class="line after"><span class="ws">    </span># assoc list</pre>
+<pre class="line after"><span class="ws">    </span>known_encodings_map = [</pre>
+<pre class="line after"><span class="ws">        </span>(person.id, person.facial_encoding) for person in all_people</pre>
+<pre class="line after"><span class="ws">    </span>]</pre>
+<pre class="line after"><span class="ws">    </span># Needs to be list anyway</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976504">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask_sqlalchemy/__init__.py"</cite>,
+      line <em class="line">550</em>,
+      in <code class="function">__get__</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">    </span>def __init__(self, sa):</pre>
+<pre class="line before"><span class="ws">        </span>self.sa = sa</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def __get__(self, obj, type):</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line current"><span class="ws">            </span>mapper = orm.class_mapper(type)</pre>
+<pre class="line after"><span class="ws">            </span>if mapper:</pre>
+<pre class="line after"><span class="ws">                </span>return type.query_class(mapper, session=self.sa.session())</pre>
+<pre class="line after"><span class="ws">        </span>except UnmappedClassError:</pre>
+<pre class="line after"><span class="ws">            </span>return None</pre>
+<pre class="line after"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853974880">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py"</cite>,
+      line <em class="line">442</em>,
+      in <code class="function">class_mapper</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>Using the inspection system will raise</pre>
+<pre class="line before"><span class="ws">    </span>:class:`sqlalchemy.exc.NoInspectionAvailable` if the class is not mapped.</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>&quot;&quot;&quot;</pre>
+<pre class="line current"><span class="ws">    </span>mapper = _inspect_mapped_class(class_, configure=configure)</pre>
+<pre class="line after"><span class="ws">    </span>if mapper is None:</pre>
+<pre class="line after"><span class="ws">        </span>if not isinstance(class_, type):</pre>
+<pre class="line after"><span class="ws">            </span>raise sa_exc.ArgumentError(</pre>
+<pre class="line after"><span class="ws">                </span>&quot;Class object expected, got '%r'.&quot; % (class_,)</pre>
+<pre class="line after"><span class="ws">            </span>)</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977008">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py"</cite>,
+      line <em class="line">421</em>,
+      in <code class="function">_inspect_mapped_class</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>mapper = class_manager.mapper</pre>
+<pre class="line before"><span class="ws">    </span>except exc.NO_STATE:</pre>
+<pre class="line before"><span class="ws">        </span>return None</pre>
+<pre class="line before"><span class="ws">    </span>else:</pre>
+<pre class="line before"><span class="ws">        </span>if configure:</pre>
+<pre class="line current"><span class="ws">            </span>mapper._check_configure()</pre>
+<pre class="line after"><span class="ws">        </span>return mapper</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>def class_mapper(class_, configure=True):</pre>
+<pre class="line after"><span class="ws">    </span>&quot;&quot;&quot;Given a class, return the primary :class:`_orm.Mapper` associated</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977064">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py"</cite>,
+      line <em class="line">1901</em>,
+      in <code class="function">_check_configure</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">                </span>&quot;columns get mapped.&quot; % (key, self, column.key, prop)</pre>
+<pre class="line before"><span class="ws">            </span>)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def _check_configure(self):</pre>
+<pre class="line before"><span class="ws">        </span>if self.registry._new_mappers:</pre>
+<pre class="line current"><span class="ws">            </span>_configure_registries({self.registry}, cascade=True)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def _post_configure_properties(self):</pre>
+<pre class="line after"><span class="ws">        </span>&quot;&quot;&quot;Call the ``init()`` method on all ``MapperProperties``</pre>
+<pre class="line after"><span class="ws">        </span>attached to this mapper.</pre>
+<pre class="line after"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976896">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py"</cite>,
+      line <em class="line">3425</em>,
+      in <code class="function">_configure_registries</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span># initialize properties on all mappers</pre>
+<pre class="line before"><span class="ws">            </span># note that _mapper_registry is unordered, which</pre>
+<pre class="line before"><span class="ws">            </span># may randomly conceal/reveal issues related to</pre>
+<pre class="line before"><span class="ws">            </span># the order of mapper compilation</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line current"><span class="ws">            </span>_do_configure_registries(registries, cascade)</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre>
+<pre class="line after"><span class="ws">            </span>_already_compiling = False</pre>
+<pre class="line after"><span class="ws">    </span>Mapper.dispatch._for_class(Mapper).after_configured()</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853976952">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py"</cite>,
+      line <em class="line">3464</em>,
+      in <code class="function">_do_configure_registries</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">                </span>e._configure_failed = mapper._configure_failed</pre>
+<pre class="line before"><span class="ws">                </span>raise e</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">            </span>if not mapper.configured:</pre>
+<pre class="line before"><span class="ws">                </span>try:</pre>
+<pre class="line current"><span class="ws">                    </span>mapper._post_configure_properties()</pre>
+<pre class="line after"><span class="ws">                    </span>mapper._expire_memoizations()</pre>
+<pre class="line after"><span class="ws">                    </span>mapper.dispatch.mapper_configured(mapper, mapper.class_)</pre>
+<pre class="line after"><span class="ws">                </span>except Exception:</pre>
+<pre class="line after"><span class="ws">                    </span>exc = sys.exc_info()[1]</pre>
+<pre class="line after"><span class="ws">                    </span>if not hasattr(exc, &quot;_configure_failed&quot;):</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977120">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py"</cite>,
+      line <em class="line">1918</em>,
+      in <code class="function">_post_configure_properties</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>l = [(key, prop) for key, prop in self._props.items()]</pre>
+<pre class="line before"><span class="ws">        </span>for key, prop in l:</pre>
+<pre class="line before"><span class="ws">            </span>self._log(&quot;initialize prop %s&quot;, key)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">            </span>if prop.parent is self and not prop._configure_started:</pre>
+<pre class="line current"><span class="ws">                </span>prop.init()</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">            </span>if prop._configure_finished:</pre>
+<pre class="line after"><span class="ws">                </span>prop.post_instrument_class(self)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>self._log(&quot;_post_configure_properties() complete&quot;)</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977176">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/interfaces.py"</cite>,
+      line <em class="line">231</em>,
+      in <code class="function">init</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>initialization steps.</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>&quot;&quot;&quot;</pre>
+<pre class="line before"><span class="ws">        </span>self._configure_started = True</pre>
+<pre class="line current"><span class="ws">        </span>self.do_init()</pre>
+<pre class="line after"><span class="ws">        </span>self._configure_finished = True</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>@property</pre>
+<pre class="line after"><span class="ws">    </span>def class_attribute(self):</pre>
+<pre class="line after"><span class="ws">        </span>&quot;&quot;&quot;Return the class-bound descriptor corresponding to this</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977232">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py"</cite>,
+      line <em class="line">2152</em>,
+      in <code class="function">do_init</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">    </span>def do_init(self):</pre>
+<pre class="line before"><span class="ws">        </span>self._check_conflicts()</pre>
+<pre class="line before"><span class="ws">        </span>self._process_dependent_arguments()</pre>
+<pre class="line before"><span class="ws">        </span>self._setup_registry_dependencies()</pre>
+<pre class="line current"><span class="ws">        </span>self._setup_join_conditions()</pre>
+<pre class="line after"><span class="ws">        </span>self._check_cascade_settings(self._cascade)</pre>
+<pre class="line after"><span class="ws">        </span>self._post_init()</pre>
+<pre class="line after"><span class="ws">        </span>self._generate_backref()</pre>
+<pre class="line after"><span class="ws">        </span>self._join_condition._warn_for_conflicting_sync_targets()</pre>
+<pre class="line after"><span class="ws">        </span>super(RelationshipProperty, self).do_init()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977288">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py"</cite>,
+      line <em class="line">2264</em>,
+      in <code class="function">_setup_join_conditions</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>local_remote_pairs=self.local_remote_pairs,</pre>
+<pre class="line before"><span class="ws">            </span>remote_side=self.remote_side,</pre>
+<pre class="line before"><span class="ws">            </span>self_referential=self._is_self_referential,</pre>
+<pre class="line before"><span class="ws">            </span>prop=self,</pre>
+<pre class="line before"><span class="ws">            </span>support_sync=not self.viewonly,</pre>
+<pre class="line current"><span class="ws">            </span>can_be_synced_fn=self._columns_are_mapped,</pre>
+<pre class="line after"><span class="ws">        </span>)</pre>
+<pre class="line after"><span class="ws">        </span>self.primaryjoin = jc.primaryjoin</pre>
+<pre class="line after"><span class="ws">        </span>self.secondaryjoin = jc.secondaryjoin</pre>
+<pre class="line after"><span class="ws">        </span>self.direction = jc.direction</pre>
+<pre class="line after"><span class="ws">        </span>self.local_remote_pairs = jc.local_remote_pairs</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977344">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py"</cite>,
+      line <em class="line">2643</em>,
+      in <code class="function">__init__</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>self._remote_side = remote_side</pre>
+<pre class="line before"><span class="ws">        </span>self.prop = prop</pre>
+<pre class="line before"><span class="ws">        </span>self.self_referential = self_referential</pre>
+<pre class="line before"><span class="ws">        </span>self.support_sync = support_sync</pre>
+<pre class="line before"><span class="ws">        </span>self.can_be_synced_fn = can_be_synced_fn</pre>
+<pre class="line current"><span class="ws">        </span>self._determine_joins()</pre>
+<pre class="line after"><span class="ws">        </span>self._sanitize_joins()</pre>
+<pre class="line after"><span class="ws">        </span>self._annotate_fks()</pre>
+<pre class="line after"><span class="ws">        </span>self._annotate_remote()</pre>
+<pre class="line after"><span class="ws">        </span>self._annotate_local()</pre>
+<pre class="line after"><span class="ws">        </span>self._annotate_parentmapper()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977400">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py"</cite>,
+      line <em class="line">2743</em>,
+      in <code class="function">_determine_joins</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">                </span>if self.secondaryjoin is None:</pre>
+<pre class="line before"><span class="ws">                    </span>self.secondaryjoin = join_condition(</pre>
+<pre class="line before"><span class="ws">                        </span>self.child_persist_selectable,</pre>
+<pre class="line before"><span class="ws">                        </span>self.secondary,</pre>
+<pre class="line before"><span class="ws">                        </span>a_subset=self.child_local_selectable,</pre>
+<pre class="line current"><span class="ws">                        </span>consider_as_foreign_keys=consider_as_foreign_keys,</pre>
+<pre class="line after"><span class="ws">                    </span>)</pre>
+<pre class="line after"><span class="ws">                </span>if self.primaryjoin is None:</pre>
+<pre class="line after"><span class="ws">                    </span>self.primaryjoin = join_condition(</pre>
+<pre class="line after"><span class="ws">                        </span>self.parent_persist_selectable,</pre>
+<pre class="line after"><span class="ws">                        </span>self.secondary,</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845853977456">
+  <h4>File <cite class="filename">"&lt;string&gt;"</cite>,
+      line <em class="line">2</em>,
+      in <code class="function">join_condition</code></h4>
+  <div class="source "><pre class="line current"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-139846297353128">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py"</cite>,
+      line <em class="line">1213</em>,
+      in <code class="function">_join_condition</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">         </span>This allows the &quot;right side&quot; of a join to be passed thereby</pre>
+<pre class="line before"><span class="ws">         </span>providing a &quot;natural join&quot;.</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>&quot;&quot;&quot;</pre>
+<pre class="line before"><span class="ws">        </span>constraints = cls._joincond_scan_left_right(</pre>
+<pre class="line current"><span class="ws">            </span>a, a_subset, b, consider_as_foreign_keys</pre>
+<pre class="line after"><span class="ws">        </span>)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>if len(constraints) &gt; 1:</pre>
+<pre class="line after"><span class="ws">            </span>cls._joincond_trim_constraints(</pre>
+<pre class="line after"><span class="ws">                </span>a, b, constraints, consider_as_foreign_keys</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855813248">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py"</cite>,
+      line <em class="line">1265</em>,
+      in <code class="function">_joincond_scan_left_right</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>cls, a, a_subset, b, consider_as_foreign_keys</pre>
+<pre class="line before"><span class="ws">    </span>):</pre>
+<pre class="line before"><span class="ws">        </span>sql_util = util.preloaded.sql_util</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>a = coercions.expect(roles.FromClauseRole, a)</pre>
+<pre class="line current"><span class="ws">        </span>b = coercions.expect(roles.FromClauseRole, b)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>constraints = collections.defaultdict(list)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>for left in (a_subset, a):</pre>
+<pre class="line after"><span class="ws">            </span>if left is None:</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855812968">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py"</cite>,
+      line <em class="line">189</em>,
+      in <code class="function">expect</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">                        </span>except AttributeError:</pre>
+<pre class="line before"><span class="ws">                            </span>impl._raise_for_expected(original_element, argname)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">                </span>if resolved is None:</pre>
+<pre class="line before"><span class="ws">                    </span>resolved = impl._literal_coercion(</pre>
+<pre class="line current"><span class="ws">                        </span>element, argname=argname, **kw</pre>
+<pre class="line after"><span class="ws">                    </span>)</pre>
+<pre class="line after"><span class="ws">            </span>else:</pre>
+<pre class="line after"><span class="ws">                </span>resolved = element</pre>
+<pre class="line after"><span class="ws">    </span>else:</pre>
+<pre class="line after"><span class="ws">        </span>resolved = element</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855813136">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py"</cite>,
+      line <em class="line">371</em>,
+      in <code class="function">_literal_coercion</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>if isinstance(element, util.string_types) and issubclass(</pre>
+<pre class="line before"><span class="ws">            </span>elements.TextClause, self._role_class</pre>
+<pre class="line before"><span class="ws">        </span>):</pre>
+<pre class="line before"><span class="ws">            </span>_no_text_coercion(element, argname)</pre>
+<pre class="line before"><span class="ws">        </span>else:</pre>
+<pre class="line current"><span class="ws">            </span>self._raise_for_expected(element, argname)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>class _CoerceLiterals(object):</pre>
+<pre class="line after"><span class="ws">    </span>__slots__ = ()</pre>
+<pre class="line after"><span class="ws">    </span>_coerce_consts = False</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855813192">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py"</cite>,
+      line <em class="line">443</em>,
+      in <code class="function">_raise_for_expected</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>element,</pre>
+<pre class="line before"><span class="ws">            </span>argname=argname,</pre>
+<pre class="line before"><span class="ws">            </span>resolved=resolved,</pre>
+<pre class="line before"><span class="ws">            </span>advice=advice,</pre>
+<pre class="line before"><span class="ws">            </span>code=code,</pre>
+<pre class="line current"><span class="ws">            </span>**kw</pre>
+<pre class="line after"><span class="ws">        </span>)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>class HasCacheKeyImpl(RoleImpl):</pre>
+<pre class="line after"><span class="ws">    </span>__slots__ = ()</pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855812184">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py"</cite>,
+      line <em class="line">283</em>,
+      in <code class="function">_raise_for_expected</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>msg = &quot;%s expected, got %s.&quot; % (self.name, got)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>if advice:</pre>
+<pre class="line before"><span class="ws">            </span>msg += &quot; &quot; + advice</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line current"><span class="ws">        </span>util.raise_(exc.ArgumentError(msg, code=code), replace_context=err)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws"></span>class _Deannotate(object):</pre>
+<pre class="line after"><span class="ws">    </span>__slots__ = ()</pre>
+<pre class="line after"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-139845855812576">
+  <h4>File <cite class="filename">"/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py"</cite>,
+      line <em class="line">207</em>,
+      in <code class="function">raise_</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span># intermediary exception does not change, but we can't figure</pre>
+<pre class="line before"><span class="ws">            </span># that out.</pre>
+<pre class="line before"><span class="ws">            </span>exception.__cause__ = replace_context</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line current"><span class="ws">            </span>raise exception</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre>
+<pre class="line after"><span class="ws">            </span># credit to</pre>
+<pre class="line after"><span class="ws">            </span># https://cosmicpercolator.com/2016/01/13/exception-leaks-in-python-2-and-3/</pre>
+<pre class="line after"><span class="ws">            </span># as the __traceback__ object creates a cycle</pre>
+<pre class="line after"><span class="ws">            </span>del exception, replace_context, from_, with_traceback</pre></div>
+</div>
+</ul>
+  <blockquote>sqlalchemy.exc.ArgumentError: FROM expression, such as a Table or alias() object expected, got ('parent', {}).</blockquote>
+</div>
+
+<div class="plain">
+  <form action="/?__debugger__=yes&amp;cmd=paste" method="post">
+    <p>
+      <input type="hidden" name="language" value="pytb">
+      This is the Copy/Paste friendly version of the traceback.  <span
+      class="pastemessage">You can also paste this traceback into
+      a <a href="https://gist.github.com/">gist</a>:
+      <input type="submit" value="create paste"></span>
+    </p>
+    <textarea cols="50" rows="10" name="code" readonly>Traceback (most recent call last):
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py&quot;, line 39, in reraise
+    raise value
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py&quot;, line 39, in reraise
+    raise value
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py&quot;, line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/views/facial_recognition.py&quot;, line 33, in detect
+    compare_faces(unknown_img, unknown_encodings)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/recognition.py&quot;, line 56, in compare_faces
+    all_people = People.query.order_by(People.id).all()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask_sqlalchemy/__init__.py&quot;, line 550, in __get__
+    mapper = orm.class_mapper(type)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py&quot;, line 442, in class_mapper
+    mapper = _inspect_mapped_class(class_, configure=configure)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py&quot;, line 421, in _inspect_mapped_class
+    mapper._check_configure()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py&quot;, line 1901, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py&quot;, line 3425, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py&quot;, line 3464, in _do_configure_registries
+    mapper._post_configure_properties()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py&quot;, line 1918, in _post_configure_properties
+    prop.init()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/interfaces.py&quot;, line 231, in init
+    self.do_init()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py&quot;, line 2152, in do_init
+    self._setup_join_conditions()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py&quot;, line 2264, in _setup_join_conditions
+    can_be_synced_fn=self._columns_are_mapped,
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py&quot;, line 2643, in __init__
+    self._determine_joins()
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py&quot;, line 2743, in _determine_joins
+    consider_as_foreign_keys=consider_as_foreign_keys,
+  File &quot;&lt;string&gt;&quot;, line 2, in join_condition
+    
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py&quot;, line 1213, in _join_condition
+    a, a_subset, b, consider_as_foreign_keys
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py&quot;, line 1265, in _joincond_scan_left_right
+    b = coercions.expect(roles.FromClauseRole, b)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py&quot;, line 189, in expect
+    element, argname=argname, **kw
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py&quot;, line 371, in _literal_coercion
+    self._raise_for_expected(element, argname)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py&quot;, line 443, in _raise_for_expected
+    **kw
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py&quot;, line 283, in _raise_for_expected
+    util.raise_(exc.ArgumentError(msg, code=code), replace_context=err)
+  File &quot;/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py&quot;, line 207, in raise_
+    raise exception
+sqlalchemy.exc.ArgumentError: FROM expression, such as a Table or alias() object expected, got ('parent', {}).</textarea>
+  </form>
+</div>
+<div class="explanation">
+  The debugger caught an exception in your WSGI application.  You can now
+  look at the traceback which led to the error.  <span class="nojavascript">
+  If you enable JavaScript you can also use additional features such as code
+  execution (if the evalex feature is enabled), automatic pasting of the
+  exceptions and much more.</span>
+</div>
+      <div class="footer">
+        Brought to you by <strong class="arthur">DON'T PANIC</strong>, your
+        friendly Werkzeug powered traceback interpreter.
+      </div>
+    </div>
+
+    <div class="pin-prompt">
+      <div class="inner">
+        <h3>Console Locked</h3>
+        <p>
+          The console is locked and needs to be unlocked by entering the PIN.
+          You can find the PIN printed out on the standard output of your
+          shell that runs the server.
+        <form>
+          <p>PIN:
+            <input type=text name=pin size=14>
+            <input type=submit name=btn value="Confirm Pin">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!--
+
+Traceback (most recent call last):
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/views/facial_recognition.py", line 33, in detect
+    compare_faces(unknown_img, unknown_encodings)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/r2_facial_recognition/server/recognition.py", line 56, in compare_faces
+    all_people = People.query.order_by(People.id).all()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/flask_sqlalchemy/__init__.py", line 550, in __get__
+    mapper = orm.class_mapper(type)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py", line 442, in class_mapper
+    mapper = _inspect_mapped_class(class_, configure=configure)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/base.py", line 421, in _inspect_mapped_class
+    mapper._check_configure()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py", line 1901, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py", line 3425, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py", line 3464, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/mapper.py", line 1918, in _post_configure_properties
+    prop.init()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/interfaces.py", line 231, in init
+    self.do_init()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py", line 2152, in do_init
+    self._setup_join_conditions()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py", line 2264, in _setup_join_conditions
+    can_be_synced_fn=self._columns_are_mapped,
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py", line 2643, in __init__
+    self._determine_joins()
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/orm/relationships.py", line 2743, in _determine_joins
+    consider_as_foreign_keys=consider_as_foreign_keys,
+  File "<string>", line 2, in join_condition
+    
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py", line 1213, in _join_condition
+    a, a_subset, b, consider_as_foreign_keys
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/selectable.py", line 1265, in _joincond_scan_left_right
+    b = coercions.expect(roles.FromClauseRole, b)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py", line 189, in expect
+    element, argname=argname, **kw
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py", line 371, in _literal_coercion
+    self._raise_for_expected(element, argname)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py", line 443, in _raise_for_expected
+    **kw
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/sql/coercions.py", line 283, in _raise_for_expected
+    util.raise_(exc.ArgumentError(msg, code=code), replace_context=err)
+  File "/home/cornellcupcs/Desktop/c1c0_modules/r2-facial_recognition_server/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+sqlalchemy.exc.ArgumentError: FROM expression, such as a Table or alias() object expected, got ('parent', {}).
+
+-->
