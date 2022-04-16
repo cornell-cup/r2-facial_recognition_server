@@ -1,4 +1,6 @@
 flask
 flask_sqlalchemy
 numpy
-face_recognition
+face-recognition
+face-recognition-models
+Flask
