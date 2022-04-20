@@ -1,3 +1,4 @@
+import cv2
 from flask import Blueprint, request, current_app
 import numpy as np
 
@@ -33,14 +34,20 @@ def detect():
     if request.method == 'POST':
         try:
             # print(request.files)
+            shape = eval(request.form.get('shape'))
             filenames = list(request.files.keys())
             # print(list(filenames))
             # print(dir(request.files['image']))
-            data = np.frombuffer(request.files['image'].stream.read())
-            print(type(data))
-            print(data)
-            print(data.shape)
-            unknown_img = data if 'image' in filenames else None
+            data = np.frombuffer(request.files['image'].stream.read(),
+                                 dtype=np.uint8)
+
+            print(f'type(data)={type(data)}')
+            print(f'data={data}')
+            print(f'data.shape={data.shape}')
+            print(f'shape={shape}')
+            unknown_img = np.reshape(data, tuple(shape)) if 'image' in filenames else None
+            unknown_img = cv2.cvtColor(unknown_img, cv2.COLOR_RGB2BGR)
+            cv2.imwrite('test.jpeg', unknown_img)
             unknown_encodings = np.frombuffer(request.files['encoding']) \
                 if 'encoding' in filenames else None
             # print(unknown_img)

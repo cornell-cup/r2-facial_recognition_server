@@ -54,8 +54,6 @@ def prepare(folder: Optional[str] = None, force_reload: bool = False):
 def compare_faces(img: Optional[np.ndarray] = None,
                   encodings: Optional[List[np.ndarray]] = None):
     query = People.query
-    print(type(img))
-    print(img)
     print('\n\nPrinting query info:')
     print(query)
     ordered_query = query.order_by(People.id)
