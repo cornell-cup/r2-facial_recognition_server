@@ -4,3 +4,6 @@ numpy
 face-recognition
 face-recognition-models
 Flask
+beautifulsoup4
+requests
+opencv-python
