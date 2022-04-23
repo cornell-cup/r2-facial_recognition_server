@@ -25,7 +25,10 @@ class People(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
-    facial_encoding = db.Column(db.LargeBinary, nullable=False)
+    facial_encoding = db.Column(db.LargeBinary, nullable=True)
+    username = db.Column(db.String(80), nullable=True)
+    password = db.Column(db.String(80), nullable=True)
+    admin = db.Column(db.Boolean, nullable=False)
 
 
 class Meetings(db.Model):

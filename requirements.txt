@@ -1,5 +1,7 @@
 flask
-flask_sqlalchemy
+flask-sqlalchemy
+flask-login
+flask
 numpy
 face-recognition
 face-recognition-models
@@ -7,3 +9,5 @@ Flask
 beautifulsoup4
 requests
 opencv-python
+pillow
+werkzeug

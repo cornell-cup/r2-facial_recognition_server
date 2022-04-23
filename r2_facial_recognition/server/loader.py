@@ -12,6 +12,7 @@ try:
 except ImportError:
     from config import PROCESSORS
 
+
 def DEFAULT_LOADER(url):
     """
     Loads the html from the url and returns it as a string.
@@ -22,7 +23,7 @@ def DEFAULT_LOADER(url):
 
 def cornellcup_loader(url):
     """
-    Loads the html from the url and returns it as a string.
+    Loads the html from the url and parse all the members of CUP into Mappings.
     """
     response = get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -35,7 +36,7 @@ def cornellcup_loader(url):
     # 
     # 
     url_stem = url.rsplit('/', 1)[0]
-    members = {}
+    members: dict = {}
     for card in cards:
         print(card)
         members[card.find('h2').text] = (card.find('h3').text, card.find('img').get('src'))
@@ -47,12 +48,18 @@ def cornellcup_loader(url):
             members[member] = (subteam, image)
         for member, (subteam, image) in members.items():
             img_io = io.BytesIO(image.get())
-            members[member] = (subteam, cv2.cvtColor(np.array(Image.open(img_io)), cv2.COLOR_RGB2BGR))
+            print(f'{member} ({subteam}) loaded!')
+            members[member] = (subteam, )
 
     return members
 
+
 def load_content(url):
     return get(url).content
+
+
+def load(url, loader=DEFAULT_LOADER):
+    return loader(url)
 
 
 def _display_info(map_, name):
@@ -61,6 +68,7 @@ def _display_info(map_, name):
     cv2.putText(image, name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     cv2.putText(image, subteam, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     cv2.imshow(name, image)
+
 
 if __name__ == '__main__':
     mappings = cornellcup_loader('https://cornellcuprobotics.com/members.html')

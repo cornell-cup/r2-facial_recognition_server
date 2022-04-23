@@ -2,10 +2,7 @@ import cv2
 from flask import Blueprint, request, current_app
 import numpy as np
 
-try:
-    from ..recognition import prepare, compare_faces
-except ImportError:
-    from r2_facial_recognition.server.recognition import prepare, compare_faces
+from ..recognition import prepare, compare_faces
 
 
 face_recognition_bp = Blueprint('face_recognition_bp', __name__)

@@ -10,7 +10,7 @@ try:
     from .models import db, People
 
 except ImportError:
-    from r2_facial_recognition.server.models import db, People
+    from models import db, People
 
 FILE_FOLDER = ''
 IMG_EXTs = ['jpg', 'jpeg', 'png']
@@ -36,7 +36,8 @@ def prepare(folder: Optional[str] = None, force_reload: bool = False):
                                                     last_name=last_name).all()
                     if len(people) == 0:
                         encodings = face_encodings(load_image_file(file))
-                        person = People(first_name, last_name, encodings)
+                        person = People(first_name, last_name, encodings,
+                                        admin=False)
                         db.session.add(person)
                     elif len(people) == 1:
                         # One person, replace
