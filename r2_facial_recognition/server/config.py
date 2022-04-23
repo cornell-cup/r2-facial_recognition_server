@@ -7,3 +7,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 ALLOWED_EXTENSIONS = [
     'jpg', 'jpeg', 'png'
 ]
+
+PROCESSORS = 12
