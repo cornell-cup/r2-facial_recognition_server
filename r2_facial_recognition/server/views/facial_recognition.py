@@ -1,9 +1,11 @@
 import cv2
 from flask import Blueprint, request, current_app
 import numpy as np
+from gamlogger import get_default_logger
 
 from ..recognition import prepare, compare_faces
 
+logger = get_default_logger(__name__)
 
 face_recognition_bp = Blueprint('face_recognition_bp', __name__)
 
@@ -16,9 +18,8 @@ def allowed_file(filename):
 
 @face_recognition_bp.before_app_first_request
 def start_up():
-    print(current_app.config.get('UPLOADS_FOLDER'))
     prepare(current_app.config.get('UPLOADS_FOLDER'))
-    print('Facial Recognition Server completed startup operation.')
+    logger.info('Facial Recognition Server completed startup operation.')
 
 
 @face_recognition_bp.route('/', methods=['GET'])
@@ -28,29 +29,27 @@ def index():
 
 @face_recognition_bp.route('/detect', methods=['GET', 'POST'])
 def detect():
+    logger.debug('Request to detect face received.')
     if request.method == 'POST':
         try:
-            # print(request.files)
             shape = eval(request.form.get('shape'))
             filenames = list(request.files.keys())
-            # print(list(filenames))
-            # print(dir(request.files['image']))
+            # Image in BGR format
             data = np.frombuffer(request.files['image'].stream.read(),
                                  dtype=np.uint8)
-
-            print(f'type(data)={type(data)}')
-            print(f'data={data}')
-            print(f'data.shape={data.shape}')
-            print(f'shape={shape}')
-            unknown_img = np.reshape(data, tuple(shape)) if 'image' in filenames else None
-            unknown_img = cv2.cvtColor(unknown_img, cv2.COLOR_RGB2BGR)
-            cv2.imwrite('test.jpeg', unknown_img)
+            unknown_img = np.reshape(data, tuple(shape)) if 'image' in \
+                                                            filenames else None
             unknown_encodings = np.frombuffer(request.files['encoding']) \
                 if 'encoding' in filenames else None
-            # print(unknown_img)
-            # print(unknown_encodings)
-            compare_faces(unknown_img, unknown_encodings)
+            identities, encodings = compare_faces(unknown_img,
+                                                  unknown_encodings)
+            logger.debug('%s identities found!', len(identities))
+            return {
+                'matches': list(zip(identities, encodings)),
+                'face_locations': []
+            }
         except ValueError as exc:
+            logger.debug('Got a ValueError: %s', exc.args)
             if current_app.config['DEBUG']:
                 raise exc
             return '400 - Bad request', 400

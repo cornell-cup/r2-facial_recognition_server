@@ -1,4 +1,5 @@
 import os
+from logging import INFO
 
 UPLOADS_FOLDER = 'uploads'
 
@@ -13,6 +14,8 @@ ALLOWED_EXTENSIONS = [
 PROCESSORS = 12
 
 SECRET_FILENAME = '.secret'
+
+LOG_LEVEL = INFO
 
 if os.path.exists(SECRET_FILENAME):
     with open('.secret', 'r') as f:
