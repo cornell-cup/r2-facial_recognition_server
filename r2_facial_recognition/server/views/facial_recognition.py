@@ -32,7 +32,11 @@ def detect():
     logger.debug('Request to detect face received.')
     if request.method == 'POST':
         try:
-            shape = eval(request.form.get('shape'))
+            shape = request.form.get('shape')
+            if shape is None:
+                return 'Please include the shape of the image.', 400
+            print(shape)
+            shape = eval(shape)
             filenames = list(request.files.keys())
             # Image in BGR format
             data = np.frombuffer(request.files['image'].stream.read(),
@@ -41,11 +45,13 @@ def detect():
                                                             filenames else None
             unknown_encodings = np.frombuffer(request.files['encoding']) \
                 if 'encoding' in filenames else None
-            identities, encodings = compare_faces(unknown_img,
-                                                  unknown_encodings)
+            identities, encodings, face_locations = compare_faces(
+                unknown_img, unknown_encodings)
             logger.debug('%s identities found!', len(identities))
+            matches = list(zip(identities, face_locations))
+            print(matches)
             return {
-                'matches': list(zip(identities, encodings)),
+                'matches': matches,
                 'face_locations': []
             }
         except ValueError as exc:

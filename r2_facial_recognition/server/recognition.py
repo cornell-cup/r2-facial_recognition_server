@@ -69,6 +69,7 @@ def compare_faces(img: Optional[np.ndarray] = None,
                   gen_face_locations: bool = False):
     logger.info('Comparing face.')
     all_people = People.query.order_by(People.id.desc()).all()
+    print([person.first_name for person in all_people])
     # assoc list
     known_encodings_map = [
         (person.id, person.facial_encoding) for person in all_people
