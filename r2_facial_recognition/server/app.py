@@ -8,11 +8,16 @@ try:
     from .models import db, People
     from .views.facial_recognition import face_recognition_bp
     from .views.admin import admin_bp
+    from .config import LOG_LEVEL
 except ImportError:
     from models import db, People
     from views.facial_recognition import \
         face_recognition_bp
     from views.admin import admin_bp
+    from config import LOG_LEVEL
+
+
+logger.setLevel(LOG_LEVEL)
 
 
 def create_app():
