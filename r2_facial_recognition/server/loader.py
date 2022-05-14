@@ -6,12 +6,8 @@ from bs4 import BeautifulSoup
 from requests import get
 from gamlogger import get_default_logger
 
-try:
-    from .utils import img_from_bytes
-    from .config import PROCESSORS
-except ImportError:
-    from utils import img_from_bytes
-    from config import PROCESSORS
+from .utils import img_from_bytes
+from .config import PROCESSORS
 
 logger = get_default_logger(__name__)
 
@@ -22,6 +18,26 @@ def default_loader(url, *args, **kwargs):
     """
     response = get(url)
     return response.text
+
+
+def derive_first_last(known_name, filename):
+    """
+    Derives the first and last name from the known name.
+    """
+    filename = filename[filename.rfind('/') + 1:filename.rfind('.')]
+    # Traverse known and filename until unexpected space
+    i = 0
+    try:
+        while known_name[i] == filename[i]:
+            i += 1
+    except IndexError:
+        raise ValueError(f'{known_name} and {filename} are not compatible. (Different lengths)')
+    # Sanity check
+    if known_name[i] != ' ':
+        raise ValueError(f'{known_name} and {filename} are not compatible. Expected a space separated first and last name.')
+    first, last = known_name[:i], known_name[i+1:]
+    
+    return first, last
 
 
 def cornellcup_loader(url, allow_list=None, *args, **kwargs):
@@ -48,7 +64,9 @@ def cornellcup_loader(url, allow_list=None, *args, **kwargs):
         logger.debug('')
         if name in allow_list:
             print(f'Loaded {name}')
-            members[name] = (img, subteam)
+            first, last = derive_first_last(name, img)
+            print(f'{first}_{last}')
+            members[f'{first}_{last}'] = (img, subteam)
         else:
             print(f'{name} was not loaded.')
 

@@ -16,7 +16,7 @@ PROCESSORS = 12
 
 SECRET_FILENAME = '.secret'
 
-ALLOW_LIST_FILE = '.allowlist.json'
+ALLOW_LIST_FILENAME = '.allowlist.json'
 
 LOG_LEVEL = INFO
 
@@ -36,7 +36,7 @@ def __init_file(filename, global_val, data, read_fun=lambda x: x):
 
 __init_file(SECRET_FILENAME, 'SECRET_KEY', lambda: os.urandom(256).hex())
 
-__init_file(ALLOW_LIST_FILE, 'ALLOW_LIST', lambda: json.dumps({'allowed': []},
+__init_file(ALLOW_LIST_FILENAME, 'ALLOW_LIST', lambda: json.dumps({'allowed': []},
                                                               sort_keys=True,
                                                               indent=4),
             read_fun=json.loads)

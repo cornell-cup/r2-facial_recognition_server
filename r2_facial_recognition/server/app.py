@@ -1,20 +1,17 @@
 from flask import Flask
 from flask_login import LoginManager
 from gamlogger import get_default_logger
+import cv2
+import os
 
 logger = get_default_logger(__name__)
 
-try:
-    from .models import db, People
-    from .views.facial_recognition import face_recognition_bp
-    from .views.admin import admin_bp
-    from .config import LOG_LEVEL
-except ImportError:
-    from models import db, People
-    from views.facial_recognition import \
-        face_recognition_bp
-    from views.admin import admin_bp
-    from config import LOG_LEVEL
+from .models import db, People
+from .views.facial_recognition import face_recognition_bp
+from .views.admin import admin_bp
+from .config import LOG_LEVEL
+from .recognition import prepare
+from .loader import load
 
 
 logger.setLevel(LOG_LEVEL)
@@ -50,6 +47,17 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return People.query.get(username=user_id)
+
+    # Scrape users if in allowlist.
+    loaded = load(app.config.get('CORNELL_CUP_WEBSITE'),
+                loader=app.config.get('LOADER'),
+                allow_list=app.config.get('ALLOW_LIST')['allowed'])
+    for name, (img, _) in loaded.items():
+        print(f'Writing {name} to uploads folder.')
+        cv2.imwrite(os.path.join(app.config.get('UPLOADS_FOLDER'),
+                                f'{name}.jpeg'), img)
+    with app.app_context():
+        prepare(app.config.get('UPLOADS_FOLDER'))
 
     logger.info('Facial Recognition app created.')
     return app

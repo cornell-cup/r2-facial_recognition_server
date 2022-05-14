@@ -18,20 +18,6 @@ def allowed_file(filename):
            current_app.config['ALLOWED_EXTENSIONS']
 
 
-@face_recognition_bp.before_app_first_request
-def start_up():
-    logger.setLevel(current_app.config.get('LOG_LEVEL'))
-    loaded = load(current_app.config.get('CORNELL_CUP_WEBSITE'),
-                  loader=current_app.config.get('LOADER'),
-                  allow_list=current_app.config.get('ALLOW_LIST')['allowed'])
-    for name, (img, _) in loaded.items():
-        print(f'Writing {name} to uploads folder.')
-        cv2.imwrite(os.path.join(current_app.config.get('UPLOADS_FOLDER'),
-                                 f'{name}.jpeg'), img)
-
-    prepare(current_app.config.get('UPLOADS_FOLDER'))
-    logger.info('Facial Recognition Server completed startup operation.')
-
 
 @face_recognition_bp.route('/', methods=['GET'])
 def index():

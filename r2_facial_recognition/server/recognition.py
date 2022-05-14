@@ -7,13 +7,9 @@ from face_recognition import (
 import numpy as np
 from gamlogger import get_default_logger
 
-try:
-    from .models import db, People
-    from .utils import img_from_bytes
+from .models import db, People
+from .utils import img_from_bytes
 
-except ImportError:
-    from models import db, People
-    from utils import img_from_bytes
 
 logger = get_default_logger(__name__)
 
