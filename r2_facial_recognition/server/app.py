@@ -4,8 +4,6 @@ from gamlogger import get_default_logger
 import cv2
 import os
 
-logger = get_default_logger(__name__)
-
 from .models import db, People
 from .views.facial_recognition import face_recognition_bp
 from .views.admin import admin_bp
@@ -14,6 +12,7 @@ from .recognition import prepare
 from .loader import load
 
 
+logger = get_default_logger(__name__)
 logger.setLevel(LOG_LEVEL)
 
 
@@ -48,14 +47,14 @@ def create_app():
     def load_user(user_id):
         return People.query.get(username=user_id)
 
-    # Scrape users if in allowlist.
+    # Scrape users if in allow-list.
     loaded = load(app.config.get('CORNELL_CUP_WEBSITE'),
-                loader=app.config.get('LOADER'),
-                allow_list=app.config.get('ALLOW_LIST')['allowed'])
+                  loader=app.config.get('LOADER'),
+                  allow_list=app.config.get('ALLOW_LIST')['allowed'])
     for name, (img, _) in loaded.items():
         print(f'Writing {name} to uploads folder.')
         cv2.imwrite(os.path.join(app.config.get('UPLOADS_FOLDER'),
-                                f'{name}.jpeg'), img)
+                                 f'{name}.jpeg'), img)
     with app.app_context():
         prepare(app.config.get('UPLOADS_FOLDER'))
 

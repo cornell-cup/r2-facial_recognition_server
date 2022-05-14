@@ -31,10 +31,12 @@ def derive_first_last(known_name, filename):
         while known_name[i] == filename[i]:
             i += 1
     except IndexError:
-        raise ValueError(f'{known_name} and {filename} are not compatible. (Different lengths)')
+        raise ValueError(f'{known_name} and {filename} are not compatible. '
+                         f'(Different lengths)')
     # Sanity check
     if known_name[i] != ' ':
-        raise ValueError(f'{known_name} and {filename} are not compatible. Expected a space separated first and last name.')
+        raise ValueError(f'{known_name} and {filename} are not compatible. '
+                         f'Expected a space separated first and last name.')
     first, last = known_name[:i], known_name[i+1:]
     
     return first, last
@@ -57,7 +59,6 @@ def cornellcup_loader(url, allow_list=None, *args, **kwargs):
     # 
     url_stem = url.rsplit('/', 1)[0]
     members: dict = {}
-    print(f'allow_list={allow_list}')
     for card in cards:
         name, img, subteam = card.find('h2').text, \
                              card.find('img').get('src'), card.find('h3').text
@@ -91,20 +92,3 @@ def _load_content(url):
 def load(url, loader='default_loader', *args, **kwargs):
     vals = globals()[loader](url, *args, **kwargs)
     return vals
-
-
-def _display_info(map_, name):
-    subteam = map_[name][0]
-    image = cv2.resize(map_[name][1], (0, 0), fx=0.25, fy=0.25)
-    cv2.putText(image, name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    cv2.putText(image, subteam, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    cv2.imshow(name, image)
-
-
-if __name__ == '__main__':
-    mappings = cornellcup_loader('https://cornellcuprobotics.com/members.html')
-    _display_info(mappings, 'Christopher De Jesus')
-    cv2.waitKey(0)
-    
-
-    
