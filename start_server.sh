@@ -1,2 +1,2 @@
 source venv/bin/activate
-FLASK_ENV=development python start_server.py
+python start_server.py --host='0.0.0.0' --port='5000'
