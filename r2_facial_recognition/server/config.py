@@ -12,7 +12,7 @@ ALLOWED_EXTENSIONS = [
     'jpg', 'jpeg', 'png'
 ]
 
-PROCESSORS = 12
+PROCESSORS = 4
 
 SECRET_FILENAME = '.secret'
 

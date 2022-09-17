@@ -48,9 +48,13 @@ def create_app():
         return People.query.get(username=user_id)
 
     # Scrape users if in allow-list.
-    loaded = load(app.config.get('CORNELL_CUP_WEBSITE'),
-                  loader=app.config.get('LOADER'),
-                  allow_list=app.config.get('ALLOW_LIST')['allowed'])
+    try:
+        loaded = load(app.config.get('CORNELL_CUP_WEBSITE'),
+                    loader=app.config.get('LOADER'),
+                    allow_list=app.config.get('ALLOW_LIST')['allowed'])
+    except Exception as e:
+        print('Failed to load users')
+        loaded = {}
     for name, (img, _) in loaded.items():
         print(f'Writing {name} to uploads folder.')
         cv2.imwrite(os.path.join(app.config.get('UPLOADS_FOLDER'),
